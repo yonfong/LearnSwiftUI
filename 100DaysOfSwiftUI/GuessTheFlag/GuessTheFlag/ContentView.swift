@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingAlert = false
     var body: some View {
         VStack {
             VStack(spacing: 20) {
                 Button("Delete Selection", action: executeDelete)
                 
                 Button("Delete Selection", role: .destructive, action: executeDelete)
+            }
+            .alert("Important message", isPresented: $showingAlert) {
+                Button("delete", role: .destructive){}
+                Button("cancel", role: .cancel){}
+                Text("please read this")
+            } message: {
+                Text("please read this")
             }
             
             VStack {
@@ -71,6 +79,7 @@ struct ContentView: View {
     
     func executeDelete() {
         print("Now deleting")
+        showingAlert = true
     }
 }
 
