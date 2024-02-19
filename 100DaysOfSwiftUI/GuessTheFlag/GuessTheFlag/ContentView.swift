@@ -8,70 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"]
+    var correctAnswer = Int.random(in: 0...2)
+    
+    
     @State private var showingAlert = false
     var body: some View {
-        VStack {
-            VStack(spacing: 20) {
-                Button("Delete Selection", action: executeDelete)
+        ZStack {
+            Color.blue
+                .ignoresSafeArea()
+            VStack(spacing: 30) {
+                VStack {
+                    Text("Tap the flag of")
+                    Text(countries[correctAnswer])
+                }
+                .foregroundStyle(.white)
                 
-                Button("Delete Selection", role: .destructive, action: executeDelete)
-            }
-            .alert("Important message", isPresented: $showingAlert) {
-                Button("delete", role: .destructive){}
-                Button("cancel", role: .cancel){}
-                Text("please read this")
-            } message: {
-                Text("please read this")
-            }
-            
-            VStack {
-                Button("Button 1"){}
-                    .buttonStyle(.bordered)
-                Button("Button 2", role: .destructive) {}
-                    .buttonStyle(.bordered)
-                Button("Button 3"){}
-                    .buttonStyle(.borderedProminent)
-                Button("Button 2", role: .destructive) {}
-                    .buttonStyle(.borderedProminent)
-                    .tint(.mint)
-                Button {
-                    print("Buttons was tapped")
-                } label: {
-                    Text("Tap me!")
-                        .padding()
-                        .foregroundStyle(.white)
-                        .background(.red)
-                }
-                
-                Button {
-                    print("Edit button was tapped")
-                } label: {
-                    Image(systemName: "pencil")
-                        .padding()
-                        .background(.red)
-                }
-                Button("Edit", systemImage: "pencil") {
-                    print("Edit button taped")
-                }
-                Button {
-                    print("Edit button was tapped")
-                } label: {
-                    Label("Edit", systemImage: "pencil")
-                        .padding()
-                        .foregroundStyle(.white)
-                        .background(.red)
-                }
-                
-                Button {
-                    print("test")
-                } label: {
-                    HStack {
-                        Text("Edit")
-                        Image(systemName: "pencil")
+                ForEach(0..<3) {number in
+                    Button {
+                        
+                    } label: {
+                        Image(countries[number])
                     }
-                    .padding()
-                    .foregroundStyle(.white)
-                    .background(.red)
                 }
             }
         }
