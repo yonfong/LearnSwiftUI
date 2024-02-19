@@ -14,6 +14,12 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     
+    @State private var correctScore = 0
+    
+    @State private var playCount = 0
+    
+    private let limitPlayCount = 8
+    
     var body: some View {
         ZStack {
 //            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom)
@@ -54,7 +60,7 @@ struct ContentView: View {
                 .clipShape(.rect(cornerRadius: 20))
                 Spacer()
                 Spacer()
-                Text("Score: ???")
+                Text("Score: \(correctScore)")
                     .foregroundStyle(.white)
                     .font(.title.bold())
                 Spacer()
@@ -62,17 +68,28 @@ struct ContentView: View {
             .padding()
         }
         .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
+            let title = playCount > limitPlayCount ? "Reset" : "Coutinue"
+            let action = playCount > limitPlayCount ? resetGame : askQuestion
+            Button(title, action: action)
         } message: {
-            Text("Your score is ??")
+            Text("Your score is :\(correctScore)")
         }
     }
     
     func flagTapped(_ number: Int) {
+        playCount += 1
+        
+        if playCount > limitPlayCount {
+            scoreTitle = "You have already played \(limitPlayCount)"
+            showingScore = true
+            return
+        }
         if number == correctAnswer {
             scoreTitle = "Correct"
+            correctScore += 1
         } else {
-            scoreTitle = "Wrong"
+            let flag = countries[number]
+            scoreTitle = "Wrong! That’s the flag of \(flag)"
         }
         showingScore = true
     }
@@ -80,6 +97,13 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func resetGame() {
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+        correctScore = 0
+        playCount = 0
     }
 }
 
