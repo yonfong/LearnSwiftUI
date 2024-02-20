@@ -60,6 +60,7 @@ struct ContentView: View {
                 
                 Section("Total amount for the check") {
                     Text(totalAmountCheck, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .foregroundStyle(tipPercentage == 0 ? .red : .black)
                 }
                 .textCase(nil)
                 

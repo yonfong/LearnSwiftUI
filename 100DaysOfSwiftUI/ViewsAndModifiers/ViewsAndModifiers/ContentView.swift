@@ -57,6 +57,20 @@ extension View {
     }
 }
 
+struct ProminentTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundStyle(.blue)
+    }
+}
+
+extension View {
+    func prominentTitleStyle() -> some View {
+        modifier(ProminentTitle())
+    }
+}
+
 struct ContentView: View {
     
     let motto1 = Text("Draco dormiens")
@@ -69,6 +83,9 @@ struct ContentView: View {
 //            motto2
 //                .foregroundStyle(.blue)
 //        }
+        
+        Text("Title")
+            .prominentTitleStyle()
         
         GrideStack(rows: 4, columns: 4) { row, col in
             Image(systemName: "\(row * 4 + col).circle")
