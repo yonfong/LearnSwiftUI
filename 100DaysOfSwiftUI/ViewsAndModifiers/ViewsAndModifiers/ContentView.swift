@@ -63,13 +63,17 @@ struct ContentView: View {
     let motto2 = Text("nunquam titllandus")
     
     var body: some View {
-        VStack {
-            motto1
-                .foregroundStyle(.red)
-            motto2
-                .foregroundStyle(.blue)
-        }
+//        VStack {
+//            motto1
+//                .foregroundStyle(.red)
+//            motto2
+//                .foregroundStyle(.blue)
+//        }
         
+        GrideStack(rows: 4, columns: 4) { row, col in
+            Image(systemName: "\(row * 4 + col).circle")
+            Text("R\(row) C\(col)")
+        }
         VStack(spacing: 10) {
             CapsuleText(text: "First")
                 .foregroundStyle(.yellow)
