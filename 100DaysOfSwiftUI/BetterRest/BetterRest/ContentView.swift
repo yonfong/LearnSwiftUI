@@ -17,6 +17,8 @@ struct ContentView: View {
             Stepper("\(sleepCount.formatted()) hours", value: $sleepCount, in: 4...12, step: 0.25)
             DatePicker("Please enter a date", selection: $wakeUp, in: Date.now..., displayedComponents: .hourAndMinute)
                 .labelsHidden()
+            Text(wakeUp, format: .dateTime.year().month().day())
+            Text(wakeUp.formatted(date: .long, time: .shortened))
         }
         .padding()
     }
@@ -24,6 +26,17 @@ struct ContentView: View {
     func exampleDates() {
         let tomorrow = Date.now.addingTimeInterval(86400)
         let range = Date.now...tomorrow
+        
+        var components = DateComponents()
+        components.hour = 8
+        components.minute = 0
+        let date = Calendar.current.date(from: components) ?? .now
+        
+        components = Calendar.current.dateComponents([.hour, .minute], from: date)
+        let hour = components.hour ?? 0
+        let minute = components.minute ?? 0
+        
+        
     }
 }
 
