@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    @State private var showScore = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -32,8 +34,17 @@ struct ContentView: View {
                         }
                     }
                 }
+                
+                if showScore {
+                    Section {
+                        Text("You got \(usedWords.count) score")
+                    }
+                }
             }
             .navigationTitle(rootWord)
+            .toolbar {
+                Button("Reset", action: startGame)
+            }
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
             .alert(errorTitle, isPresented: $showingError) {
@@ -45,6 +56,8 @@ struct ContentView: View {
     }
     
     func startGame() {
+        showScore = false
+        usedWords = []
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: ".txt") {
             if let startWords = try? String(contentsOf: startWordsURL) {
                 let allWords = startWords.components(separatedBy: "\n")
@@ -68,6 +81,11 @@ struct ContentView: View {
             return
         }
         
+        guard isAllowed(word: answer) else {
+            wordError(title: "Word not allowed", message: answer == rootWord ? "the same word not allowed" : "the word is shorter than three")
+            return
+        }
+        
         guard isPossible(word: answer) else {
             wordError(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'!")
             return
@@ -80,8 +98,10 @@ struct ContentView: View {
         
         withAnimation {
             usedWords.insert(newWord, at: 0)
+            showScore = true
         }
         newWord = ""
+        
     }
     
     func isOriginal(word: String) -> Bool {
@@ -90,7 +110,6 @@ struct ContentView: View {
     
     func isPossible(word: String) -> Bool {
         var tempWord = rootWord
-        
         for letter in word {
             if let pos = tempWord.firstIndex(of: letter) {
                 tempWord.remove(at: pos)
@@ -109,6 +128,10 @@ struct ContentView: View {
         return misspelledRange.location == NSNotFound
     }
 
+    func isAllowed(word: String) -> Bool {
+        return word.count >= 3 && word != rootWord
+    }
+    
     func wordError(title: String, message: String) {
         errorTitle = title
         errorMessage = message
