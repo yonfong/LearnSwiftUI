@@ -14,28 +14,46 @@ struct ContentView: View {
     
     @State private var dragAmount = CGSize.zero
     
+    @State private var isShowingRed = false
+    
     var body: some View {
-        HStack(spacing:0) {
-            ForEach(0..<letters.count, id: \.self) { number in
-                Text(String(letters[number]))
-                    .padding(5)
-                    .font(.title)
-                    .background(enabled ? .blue : .red)
-                    .offset(dragAmount)
-                    .animation(.linear.delay(Double(number) / 20), value: dragAmount)
+        VStack {
+            Button("Tap me") {
+                withAnimation {
+                    isShowingRed.toggle()
+                }
+            }
+            if isShowingRed {
+                Rectangle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .transition(.asymmetric(insertion: .scale, removal: .opacity))
+//                    .transition(.scale)
             }
         }
-        .gesture(
-            DragGesture()
-                .onChanged{ dragAmount = $0.translation }
-                .onEnded({ _ in
-                    dragAmount = .zero
-                    enabled.toggle()
-                })
-        )
         
         
         
+        
+        //        HStack(spacing:0) {
+//            ForEach(0..<letters.count, id: \.self) { number in
+//                Text(String(letters[number]))
+//                    .padding(5)
+//                    .font(.title)
+//                    .background(enabled ? .blue : .red)
+//                    .offset(dragAmount)
+//                    .animation(.linear.delay(Double(number) / 20), value: dragAmount)
+//            }
+//        }
+//        .gesture(
+//            DragGesture()
+//                .onChanged{ dragAmount = $0.translation }
+//                .onEnded({ _ in
+//                    dragAmount = .zero
+//                    enabled.toggle()
+//                })
+//        )
+    
         
         //        LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
 //            .frame(width: 300, height: 200)
