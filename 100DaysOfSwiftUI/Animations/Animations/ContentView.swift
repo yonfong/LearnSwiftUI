@@ -8,20 +8,59 @@
 import SwiftUI
 
 struct ContentView: View {
+    let letters = Array("Hello SwiftUI")
     @State private var animationAmount = 0.0
     @State private var enabled = false
     
+    @State private var dragAmount = CGSize.zero
+    
     var body: some View {
-        
-        Button("Tap me") {
-            enabled.toggle()
+        HStack(spacing:0) {
+            ForEach(0..<letters.count, id: \.self) { number in
+                Text(String(letters[number]))
+                    .padding(5)
+                    .font(.title)
+                    .background(enabled ? .blue : .red)
+                    .offset(dragAmount)
+                    .animation(.linear.delay(Double(number) / 20), value: dragAmount)
+            }
         }
-        .frame(width: 200, height: 200)
-        .background(enabled ? .blue : .red)
-        .animation(.default, value: enabled)
-        .foregroundStyle(.white)
-        .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
-        .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
+        .gesture(
+            DragGesture()
+                .onChanged{ dragAmount = $0.translation }
+                .onEnded({ _ in
+                    dragAmount = .zero
+                    enabled.toggle()
+                })
+        )
+        
+        
+        
+        
+        //        LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
+//            .frame(width: 300, height: 200)
+//            .clipShape(.rect(cornerRadius: 10))
+//            .offset(dragAmount)
+//            .gesture(
+//                DragGesture()
+//                    .onChanged{ dragAmount = $0.translation }
+//                    .onEnded{ _ in
+//                        withAnimation(.bouncy) {
+//                            dragAmount = .zero
+//                        }
+//                    }
+//            )
+//            .animation(.bouncy, value: dragAmount)
+        
+//        Button("Tap me") {
+//            enabled.toggle()
+//        }
+//        .frame(width: 200, height: 200)
+//        .background(enabled ? .blue : .red)
+//        .animation(.default, value: enabled)
+//        .foregroundStyle(.white)
+//        .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
+//        .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
         
         
 //        print(animationAmount)
