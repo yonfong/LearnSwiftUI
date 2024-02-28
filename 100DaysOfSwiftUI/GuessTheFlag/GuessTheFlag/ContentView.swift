@@ -31,6 +31,8 @@ struct ContentView: View {
     
     private let limitPlayCount = 8
     
+    @State private var tapedFlag: Int?
+    
     var body: some View {
         ZStack {
 //            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom)
@@ -57,9 +59,20 @@ struct ContentView: View {
                     
                     ForEach(0..<3) {number in
                         Button {
-                            flagTapped(number)
+                            withAnimation {
+                                flagTapped(number)
+                            } completion: {
+                                tapedFlag = nil
+                            }
+
                         } label: {
                             FlagImage(name: countries[number])
+                                .opacity(tapedFlag == nil ? 1.0 : number == tapedFlag ? 1.0 : 0.25)
+                                .rotation3DEffect(
+                                    .degrees(number == tapedFlag ? 360 : 0),
+                                    axis: (x: 0.0, y: 1.0, z: 0.0)
+                                )
+                                .scaleEffect(tapedFlag == nil ? 1.0 : number == tapedFlag ? 1.0 : 0.8)
                         }
                     }
                 }
@@ -86,6 +99,7 @@ struct ContentView: View {
     }
     
     func flagTapped(_ number: Int) {
+        tapedFlag = number
         playCount += 1
         
         if playCount > limitPlayCount {
