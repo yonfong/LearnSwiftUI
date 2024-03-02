@@ -8,8 +8,13 @@
 import SwiftUI
 import Observation
 
-@Observable
-class User {
+//@Observable
+//class User {
+//    var firstName = "Bilbo"
+//    var lastName = "Baggins"
+//}
+
+struct User: Codable {
     var firstName = "Bilbo"
     var lastName = "Baggins"
 }
@@ -38,6 +43,21 @@ struct ContentView: View {
     @AppStorage("tapCount") private var tapCount = 0
     
     var body: some View {
+        VStack {
+            Text("Your name is \(user.firstName) \(user.lastName)")
+            
+            TextField("First name", text: $user.firstName)
+            TextField("Last name", text: $user.lastName)
+        }
+        
+        Button("save User") {
+            let encoder = JSONEncoder()
+            if let data = try? encoder.encode(user) {
+                UserDefaults.standard.set(data, forKey: "UserData")
+            }
+        }
+        
+        
 //        Button("show sheet") {
 //            showingSheet.toggle()
 //        }
@@ -63,10 +83,10 @@ struct ContentView: View {
 //            }
 //        }
         
-        Button("Tap count: \(tapCount)") {
-            tapCount += 1
-//            UserDefaults.standard.set(tapCount, forKey: "Tap")
-        }
+//        Button("Tap count: \(tapCount)") {
+//            tapCount += 1
+////            UserDefaults.standard.set(tapCount, forKey: "Tap")
+//        }
     }
     
     func removeRows(at offsets: IndexSet) {
