@@ -42,20 +42,40 @@ struct ContentView: View {
     
     @AppStorage("tapCount") private var tapCount = 0
     
+    @State private var expenses = Expenses()
+    
     var body: some View {
-        VStack {
-            Text("Your name is \(user.firstName) \(user.lastName)")
-            
-            TextField("First name", text: $user.firstName)
-            TextField("Last name", text: $user.lastName)
-        }
-        
-        Button("save User") {
-            let encoder = JSONEncoder()
-            if let data = try? encoder.encode(user) {
-                UserDefaults.standard.set(data, forKey: "UserData")
+        NavigationStack {
+            List {
+                ForEach(expenses.items, id: \.name) { item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
+            }
+            .navigationTitle("iExpense")
+            .toolbar {
+                Button("Add Expense", systemImage: "plus") {
+                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
+                    expenses.items.append(expense)
+                }
             }
         }
+        
+        
+        
+//        VStack {
+//            Text("Your name is \(user.firstName) \(user.lastName)")
+//            
+//            TextField("First name", text: $user.firstName)
+//            TextField("Last name", text: $user.lastName)
+//        }
+//        
+//        Button("save User") {
+//            let encoder = JSONEncoder()
+//            if let data = try? encoder.encode(user) {
+//                UserDefaults.standard.set(data, forKey: "UserData")
+//            }
+//        }
         
         
 //        Button("show sheet") {
@@ -89,8 +109,8 @@ struct ContentView: View {
 //        }
     }
     
-    func removeRows(at offsets: IndexSet) {
-        numbers.remove(atOffsets: offsets)
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
     }
 }
 
