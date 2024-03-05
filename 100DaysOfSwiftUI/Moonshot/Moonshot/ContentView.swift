@@ -22,15 +22,41 @@ struct CustomText: View {
 
 struct ContentView: View {
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHStack(spacing: 10) {
-                ForEach(0..<100) {
-                    CustomText("item \($0)")
-                        .font(.title)
+//        NavigationStack {
+//            NavigationLink {
+//                Text("Detail View")
+//            } label: {
+//                VStack {
+//                    Text("This is the label")
+//                    Text("so is this")
+//                    Image(systemName: "face.smiling")
+//                }
+//                .font(.largeTitle)
+//            }
+//            NavigationLink("Tap me") {
+//                Text("Detail view")
+//            }
+//            .navigationTitle("Swift UI")
+//        }
+        
+        NavigationStack {
+            List(0..<100) { row in
+                NavigationLink("Row \(row)") {
+                    Text("Detail \(row)")
                 }
             }
-//            .frame(maxWidth: .infinity)
+            .navigationTitle("Swift UI")
         }
+        
+//        ScrollView(.horizontal) {
+//            LazyHStack(spacing: 10) {
+//                ForEach(0..<100) {
+//                    CustomText("item \($0)")
+//                        .font(.title)
+//                }
+//            }
+////            .frame(maxWidth: .infinity)
+//        }
     }
 }
 
