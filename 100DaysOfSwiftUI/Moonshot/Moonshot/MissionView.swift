@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct MissionView: View {
-    let mission: Mission
-    
     struct CrewMember {
         let role: String
         let astronaut: Astronaut
     }
     
+    let mission: Mission
     let crew:[CrewMember]
     
     init(mission: Mission, astronauts: [String: Astronaut]) {
@@ -62,7 +61,7 @@ struct MissionView: View {
                     HStack {
                         ForEach(crew, id: \.role) { crewMember in
                             NavigationLink {
-                                Text("Astronaut details")
+                                AstronautView(astronaut: crewMember.astronaut)
                             } label: {
                                 HStack {
                                     Image(crewMember.astronaut.id)
