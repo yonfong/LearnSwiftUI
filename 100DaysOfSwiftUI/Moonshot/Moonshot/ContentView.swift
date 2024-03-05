@@ -33,6 +33,9 @@ let layout = [GridItem(.adaptive(minimum: 80)),
               GridItem(.adaptive(minimum: 80)),
               GridItem(.adaptive(minimum: 80))]
 struct ContentView: View {
+    let astronauts = Bundle.main.decode("astronauts.json")
+    
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: layout) {
