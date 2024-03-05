@@ -29,9 +29,29 @@ struct Address: Codable {
     let city: String
 }
 
-
+let layout = [GridItem(.adaptive(minimum: 80)),
+              GridItem(.adaptive(minimum: 80)),
+              GridItem(.adaptive(minimum: 80))]
 struct ContentView: View {
     var body: some View {
+        ScrollView {
+            LazyVGrid(columns: layout) {
+                ForEach(0..<100) {
+                    Text("Items \($0)")
+                }
+            }
+        }
+        
+        ScrollView(.horizontal) {
+            LazyHGrid(rows: layout) {
+                ForEach(0..<100) {
+                    Text("Items \($0)")
+                }
+            }
+        }
+        
+        
+        
 //        NavigationStack {
 //            NavigationLink {
 //                Text("Detail View")
@@ -59,24 +79,24 @@ struct ContentView: View {
 //        }
         
         
-        Button("Decode JSON") {
-            let input = """
-            {
-                "name": "Taylor Swift",
-                "address": {
-                    "street": "555, Taylor Swift Avenue",
-                    "city": "Nashville"
-                }
-            }
-            """
-
-            let data = Data(input.utf8)
-            let decoder = JSONDecoder()
-            if let user = try? decoder.decode(User.self, from: data) {
-                print(user.address.street)
-            }
-            // more code to come
-        }
+//        Button("Decode JSON") {
+//            let input = """
+//            {
+//                "name": "Taylor Swift",
+//                "address": {
+//                    "street": "555, Taylor Swift Avenue",
+//                    "city": "Nashville"
+//                }
+//            }
+//            """
+//
+//            let data = Data(input.utf8)
+//            let decoder = JSONDecoder()
+//            if let user = try? decoder.decode(User.self, from: data) {
+//                print(user.address.street)
+//            }
+//            // more code to come
+//        }
         
 //        ScrollView(.horizontal) {
 //            LazyHStack(spacing: 10) {
