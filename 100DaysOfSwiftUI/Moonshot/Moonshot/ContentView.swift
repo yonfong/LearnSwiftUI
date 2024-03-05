@@ -19,6 +19,16 @@ struct CustomText: View {
     }
 }
 
+struct User: Codable {
+    let name: String
+    let address: Address
+}
+
+struct Address: Codable {
+    let street: String
+    let city: String
+}
+
 
 struct ContentView: View {
     var body: some View {
@@ -39,13 +49,33 @@ struct ContentView: View {
 //            .navigationTitle("Swift UI")
 //        }
         
-        NavigationStack {
-            List(0..<100) { row in
-                NavigationLink("Row \(row)") {
-                    Text("Detail \(row)")
+//        NavigationStack {
+//            List(0..<100) { row in
+//                NavigationLink("Row \(row)") {
+//                    Text("Detail \(row)")
+//                }
+//            }
+//            .navigationTitle("Swift UI")
+//        }
+        
+        
+        Button("Decode JSON") {
+            let input = """
+            {
+                "name": "Taylor Swift",
+                "address": {
+                    "street": "555, Taylor Swift Avenue",
+                    "city": "Nashville"
                 }
             }
-            .navigationTitle("Swift UI")
+            """
+
+            let data = Data(input.utf8)
+            let decoder = JSONDecoder()
+            if let user = try? decoder.decode(User.self, from: data) {
+                print(user.address.street)
+            }
+            // more code to come
         }
         
 //        ScrollView(.horizontal) {
