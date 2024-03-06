@@ -9,17 +9,20 @@ import SwiftUI
 
 struct DetailView: View {
     var number: Int
+    @Binding var path: NavigationPath
+    
     
     var body: some View {
-        Text("Detail view \(number)")
-    }
-    
-    init(number: Int) {
-        self.number = number
-        print("create detail view \(number)")
+        NavigationLink("go to random number", value: Int.random(in: 1...100))
+            .navigationTitle("number: \(number)")
+            .toolbar {
+                Button("home") {
+                    path = NavigationPath()
+                }
+            }
     }
 }
 
-#Preview {
-    DetailView(number: 0)
-}
+//#Preview {
+//    DetailView(path: $NavigationPath(), number: 0)
+//}
