@@ -11,9 +11,10 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(0..<100) { i in
-                NavigationLink("Tap me") {
-                    DetailView(number: i)
-                }
+                NavigationLink("Select \(i)", value: i)
+            }
+            .navigationDestination(for: Int.self) { selection in
+                DetailView(number: selection)
             }
         }
     }
