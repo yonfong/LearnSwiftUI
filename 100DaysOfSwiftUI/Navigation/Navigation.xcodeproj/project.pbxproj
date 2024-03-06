@@ -12,6 +12,7 @@
 		33809B8B2B986D13003E305E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33809B8A2B986D13003E305E /* Assets.xcassets */; };
 		33809B8E2B986D13003E305E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33809B8D2B986D13003E305E /* Preview Assets.xcassets */; };
 		33809B952B986DBB003E305E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33809B942B986DBB003E305E /* DetailView.swift */; };
+		33809B972B987B2C003E305E /* PathStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33809B962B987B2C003E305E /* PathStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		33809B8A2B986D13003E305E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33809B8D2B986D13003E305E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		33809B942B986DBB003E305E /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		33809B962B987B2C003E305E /* PathStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				33809B862B986D11003E305E /* NavigationApp.swift */,
 				33809B882B986D11003E305E /* ContentView.swift */,
+				33809B962B987B2C003E305E /* PathStore.swift */,
 				33809B942B986DBB003E305E /* DetailView.swift */,
 				33809B8A2B986D13003E305E /* Assets.xcassets */,
 				33809B8C2B986D13003E305E /* Preview Content */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33809B972B987B2C003E305E /* PathStore.swift in Sources */,
 				33809B892B986D11003E305E /* ContentView.swift in Sources */,
 				33809B952B986DBB003E305E /* DetailView.swift in Sources */,
 				33809B872B986D11003E305E /* NavigationApp.swift in Sources */,
