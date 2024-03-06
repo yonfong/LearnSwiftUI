@@ -19,7 +19,29 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.blue)
             .toolbarColorScheme(.dark)
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbar {
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button("Tap me") {
+//                        
+//                    }
+//                }
+//                
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button("Or Tap me") {
+//                        
+//                    }
+//                }
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    Button("Tap me") {
+                    
+                    }
+                    
+                    Button("Or Tap me") {
+                    
+                    }
+                }
+            }
+//            .toolbar(.hidden, for: .navigationBar)
         }
         
         

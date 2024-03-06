@@ -20,6 +20,7 @@ struct DetailView: View {
                     path = NavigationPath()
                 }
             }
+            .navigationBarBackButtonHidden()
     }
 }
 
