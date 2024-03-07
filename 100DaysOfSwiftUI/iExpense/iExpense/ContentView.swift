@@ -51,15 +51,17 @@ struct ContentView: View {
             List {
                 Section {
                     ForEach(expenses.items.filter{ return $0.type == "Personal"}) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
+                        NavigationLink(value: item) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                
+                                Spacer()
+                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                             }
-                            
-                            Spacer()
-                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         }
                     }
                     .onDelete(perform: removeItems)
@@ -67,15 +69,17 @@ struct ContentView: View {
                 
                 Section {
                     ForEach(expenses.items.filter{ return $0.type != "Personal"}) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
+                        NavigationLink(value: item) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(item.name)
+                                        .font(.headline)
+                                    Text(item.type)
+                                }
+                                
+                                Spacer()
+                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                             }
-                            
-                            Spacer()
-                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         }
                     }
                     .onDelete(perform: removeItems)
@@ -83,11 +87,16 @@ struct ContentView: View {
             }
             .navigationTitle("iExpense")
             .toolbar {
-                Button("Add Expense", systemImage: "plus") {
-//                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
-//                    expenses.items.append(expense)
-                    showingAddExpense = true
+                NavigationLink {
+                    AddView(expenses: expenses)
+                } label: {
+                    Image(systemName: "plus")
                 }
+//                Button("Add Expense", systemImage: "plus") {
+////                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
+////                    expenses.items.append(expense)
+//                    showingAddExpense = true
+//                }
             }
         }
         .sheet(isPresented: $showingAddExpense, content: {
