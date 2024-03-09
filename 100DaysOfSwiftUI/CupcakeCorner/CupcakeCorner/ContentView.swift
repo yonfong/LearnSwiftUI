@@ -13,12 +13,35 @@ struct ContentView: View {
     
     var body: some View {
         List(results, id: \.trackId) { item in
-            VStack(alignment: .leading, content: {
-                Text(item.trackName)
-                    .font(.headline)
-                
-                Text(item.collectionName)
-            })
+            HStack {
+//                AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { image in
+//                    image
+//                     .resizable()
+//                     .scaledToFit()
+//                } placeholder: {
+////                    Color.red
+//                    ProgressView()
+//                }
+//                .frame(width:100, height:100)
+                AsyncImage(url: URL(string: "https://hws.dev/img/bad.png")) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } else if phase.error != nil {
+                        Text("there was an error")
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .frame(width: 100, height: 100)
+                VStack(alignment: .leading, content: {
+                    Text(item.trackName)
+                        .font(.headline)
+                    
+                    Text(item.collectionName)
+                })
+            }
         }
         .task {
             await loadData()
