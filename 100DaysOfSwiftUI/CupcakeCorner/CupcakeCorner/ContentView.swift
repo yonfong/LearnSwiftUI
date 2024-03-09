@@ -10,8 +10,37 @@ import SwiftUI
 struct ContentView: View {
     @State private var results = [Result]()
     
+    @State private var username = ""
+    @State private var email = ""
+    
+    private var disableForm: Bool {
+        return username.count < 5 || email.count < 5
+    }
     
     var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Username", text: $username)
+                    TextField("Email", text: $email)
+                }
+                
+                Section {
+                    Button("Create accont") {
+                        print("Creating account")
+                    }
+                }
+                .disabled(disableForm)
+            }
+            .toolbar {
+                Button("Create accont") {
+                    print("Creating account")
+                }
+                .disabled(username.isEmpty || email.isEmpty)
+            }
+        }
+        
+        
         List(results, id: \.trackId) { item in
             HStack {
 //                AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { image in
