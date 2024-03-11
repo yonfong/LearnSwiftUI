@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-class Order {
+class Order: Codable {
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
     var type = 0
@@ -32,6 +32,19 @@ class Order {
     
     var extraFrosting = false
     var addSprinkles = false
+    
+    enum CodingKeys: String, CodingKey {
+        case _type = "type"
+        case _quantity = "quantity"
+        case _specialRequestEnabled = "specialRequestEnabled"
+        case _extraFrosting = "extraFrosting"
+        case _addSprinkles = "addSprinkles"
+        case _name = "name"
+        case _city = "city"
+        case _streetAddress = "streetAddress"
+        case _zip = "zip"
+    }
+    
     
     var hasValidAddress: Bool {
         if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
