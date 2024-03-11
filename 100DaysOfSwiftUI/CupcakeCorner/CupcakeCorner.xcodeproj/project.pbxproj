@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		335239692B9EA8F4007CC8B7 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335239682B9EA8F4007CC8B7 /* Order.swift */; };
+		3352396B2B9EADDF007CC8B7 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3352396A2B9EADDF007CC8B7 /* AddressView.swift */; };
 		33C820142B9B488C00A8DA20 /* CupcakeCornerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C820132B9B488C00A8DA20 /* CupcakeCornerApp.swift */; };
 		33C820162B9B488C00A8DA20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C820152B9B488C00A8DA20 /* ContentView.swift */; };
 		33C820182B9B488E00A8DA20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33C820172B9B488E00A8DA20 /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		335239682B9EA8F4007CC8B7 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		3352396A2B9EADDF007CC8B7 /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		33C820102B9B488C00A8DA20 /* CupcakeCorner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupcakeCorner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33C820132B9B488C00A8DA20 /* CupcakeCornerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupcakeCornerApp.swift; sourceTree = "<group>"; };
 		33C820152B9B488C00A8DA20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +59,8 @@
 			children = (
 				33C820132B9B488C00A8DA20 /* CupcakeCornerApp.swift */,
 				33C820152B9B488C00A8DA20 /* ContentView.swift */,
+				3352396A2B9EADDF007CC8B7 /* AddressView.swift */,
+				335239682B9EA8F4007CC8B7 /* Order.swift */,
 				33C820212B9B48F600A8DA20 /* Response.swift */,
 				33C820172B9B488E00A8DA20 /* Assets.xcassets */,
 				33C820192B9B488E00A8DA20 /* Preview Content */,
@@ -142,7 +148,9 @@
 			files = (
 				33C820162B9B488C00A8DA20 /* ContentView.swift in Sources */,
 				33C820222B9B48F600A8DA20 /* Response.swift in Sources */,
+				335239692B9EA8F4007CC8B7 /* Order.swift in Sources */,
 				33C820142B9B488C00A8DA20 /* CupcakeCornerApp.swift in Sources */,
+				3352396B2B9EADDF007CC8B7 /* AddressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
