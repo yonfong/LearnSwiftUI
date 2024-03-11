@@ -7,6 +7,16 @@
 
 import SwiftUI
 import CoreHaptics
+import Observation
+
+
+@Observable
+class User: Codable {
+    enum CodingKeys: String, CodingKey {
+        case _name = "name"
+    }
+    var name = "Taylor"
+}
 
 struct ContentView: View {
     @State private var results = [Result]()
@@ -33,6 +43,8 @@ struct ContentView: View {
             .onAppear(perform: {
                 prepareHaptics()
             })
+        
+        Button("Encode Taylor", action: encodeTaylor)
         
 //        NavigationStack {
 //            Form {
@@ -91,6 +103,12 @@ struct ContentView: View {
 //        .task {
 //            await loadData()
 //        }
+    }
+    
+    func encodeTaylor() {
+        let data = try! JSONEncoder().encode(User())
+        let string = String(decoding: data, as: UTF8.self)
+        print(string)
     }
     
     func prepareHaptics() {
