@@ -8,6 +8,14 @@
 import Foundation
 import Observation
 
+struct Address: Codable {
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zip = ""
+}
+
+
 @Observable
 class Order: Codable {
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
@@ -20,6 +28,18 @@ class Order: Codable {
     var city = ""
     var zip = ""
     
+    var deliveryAddress = Address() {
+        didSet {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(deliveryAddress)
+                
+                UserDefaults.standard.set(data, forKey: "deliveryAddress")
+            } catch {
+                print("Failed to save deliveryAddress to UserDefaults: \(error.localizedDescription)")
+            }
+        }
+    }
     
     var specialRequestEnabled = false {
         didSet {
@@ -47,7 +67,7 @@ class Order: Codable {
     
     
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || zip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return false
         }
         
@@ -70,4 +90,13 @@ class Order: Codable {
         return cost
     }
     
+    init() {
+        if let addressData = UserDefaults.standard.data(forKey: "deliveryAddress") {
+            if let decodedAddress = try? JSONDecoder().decode(Address.self, from: addressData) {
+                deliveryAddress = decodedAddress
+                return
+            }
+        }
+        deliveryAddress = Address()
+    }
 }

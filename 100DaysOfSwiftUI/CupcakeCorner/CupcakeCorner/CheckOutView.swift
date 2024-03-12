@@ -57,7 +57,7 @@ struct CheckOutView: View {
         var request = URLRequest(url: url)
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+//        request.httpMethod = "POST"
         
         do {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
@@ -66,6 +66,8 @@ struct CheckOutView: View {
             confirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
             showingConfirmation = true
         } catch {
+            confirmationMessage = "Oh no got an error -< \(error.localizedDescription)"
+            showingConfirmation = true
             print("Checkout failed: \(error.localizedDescription)")
         }
         
