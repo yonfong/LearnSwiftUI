@@ -13,6 +13,8 @@
 		33AF98242B9FF7BD001C1D93 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33AF98232B9FF7BD001C1D93 /* Preview Assets.xcassets */; };
 		33AF982B2B9FF8D6001C1D93 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF982A2B9FF8D6001C1D93 /* PushButton.swift */; };
 		33AF982D2BA00137001C1D93 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF982C2BA00137001C1D93 /* Student.swift */; };
+		33AF982F2BA1245B001C1D93 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF982E2BA1245B001C1D93 /* Book.swift */; };
+		33AF98312BA12503001C1D93 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98302BA12503001C1D93 /* AddBookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		33AF98232B9FF7BD001C1D93 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		33AF982A2B9FF8D6001C1D93 /* PushButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		33AF982C2BA00137001C1D93 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		33AF982E2BA1245B001C1D93 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		33AF98302BA12503001C1D93 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				33AF981C2B9FF7BC001C1D93 /* BookwormApp.swift */,
+				33AF98302BA12503001C1D93 /* AddBookView.swift */,
 				33AF981E2B9FF7BC001C1D93 /* ContentView.swift */,
+				33AF982E2BA1245B001C1D93 /* Book.swift */,
 				33AF982A2B9FF8D6001C1D93 /* PushButton.swift */,
 				33AF982C2BA00137001C1D93 /* Student.swift */,
 				33AF98202B9FF7BD001C1D93 /* Assets.xcassets */,
@@ -144,8 +150,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				33AF981F2B9FF7BC001C1D93 /* ContentView.swift in Sources */,
+				33AF98312BA12503001C1D93 /* AddBookView.swift in Sources */,
 				33AF981D2B9FF7BC001C1D93 /* BookwormApp.swift in Sources */,
 				33AF982B2B9FF8D6001C1D93 /* PushButton.swift in Sources */,
+				33AF982F2BA1245B001C1D93 /* Book.swift in Sources */,
 				33AF982D2BA00137001C1D93 /* Student.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
