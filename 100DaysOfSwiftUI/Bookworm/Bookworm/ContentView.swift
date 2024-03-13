@@ -13,7 +13,13 @@ struct ContentView: View {
     
     @Query var students: [Student]
     @Environment(\.modelContext) var modelContext
-    @Query var books: [Book]
+//    @Query(sort: \Book.title) var books: [Book]
+//    @Query(sort: \Book.rating, order: .reverse) var books: [Book]
+    
+//    @Query(sort: [SortDescriptor(\Book.title, order: .reverse)]) var books: [Book]
+    
+    @Query(sort: [SortDescriptor(\Book.title, order: .reverse),
+                  SortDescriptor(\Book.author)]) var books: [Book]
     
     @State private var showingAddScreen = false
     
