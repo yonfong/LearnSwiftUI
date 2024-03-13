@@ -17,6 +17,7 @@
 		33AF98312BA12503001C1D93 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98302BA12503001C1D93 /* AddBookView.swift */; };
 		33AF98332BA129BE001C1D93 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98322BA129BE001C1D93 /* RatingView.swift */; };
 		33AF98352BA12E12001C1D93 /* EmojiRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98342BA12E12001C1D93 /* EmojiRatingView.swift */; };
+		33AF98372BA151AE001C1D93 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98362BA151AE001C1D93 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		33AF98302BA12503001C1D93 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		33AF98322BA129BE001C1D93 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		33AF98342BA12E12001C1D93 /* EmojiRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiRatingView.swift; sourceTree = "<group>"; };
+		33AF98362BA151AE001C1D93 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				33AF981C2B9FF7BC001C1D93 /* BookwormApp.swift */,
 				33AF98302BA12503001C1D93 /* AddBookView.swift */,
 				33AF981E2B9FF7BC001C1D93 /* ContentView.swift */,
+				33AF98362BA151AE001C1D93 /* DetailView.swift */,
 				33AF98342BA12E12001C1D93 /* EmojiRatingView.swift */,
 				33AF98322BA129BE001C1D93 /* RatingView.swift */,
 				33AF982E2BA1245B001C1D93 /* Book.swift */,
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33AF981F2B9FF7BC001C1D93 /* ContentView.swift in Sources */,
+				33AF98372BA151AE001C1D93 /* DetailView.swift in Sources */,
 				33AF98312BA12503001C1D93 /* AddBookView.swift in Sources */,
 				33AF981D2B9FF7BC001C1D93 /* BookwormApp.swift in Sources */,
 				33AF982B2B9FF8D6001C1D93 /* PushButton.swift in Sources */,
