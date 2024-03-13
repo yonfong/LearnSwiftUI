@@ -15,6 +15,7 @@
 		33AF982D2BA00137001C1D93 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF982C2BA00137001C1D93 /* Student.swift */; };
 		33AF982F2BA1245B001C1D93 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF982E2BA1245B001C1D93 /* Book.swift */; };
 		33AF98312BA12503001C1D93 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98302BA12503001C1D93 /* AddBookView.swift */; };
+		33AF98332BA129BE001C1D93 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF98322BA129BE001C1D93 /* RatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		33AF982C2BA00137001C1D93 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		33AF982E2BA1245B001C1D93 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		33AF98302BA12503001C1D93 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		33AF98322BA129BE001C1D93 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				33AF981C2B9FF7BC001C1D93 /* BookwormApp.swift */,
 				33AF98302BA12503001C1D93 /* AddBookView.swift */,
 				33AF981E2B9FF7BC001C1D93 /* ContentView.swift */,
+				33AF98322BA129BE001C1D93 /* RatingView.swift */,
 				33AF982E2BA1245B001C1D93 /* Book.swift */,
 				33AF982A2B9FF8D6001C1D93 /* PushButton.swift */,
 				33AF982C2BA00137001C1D93 /* Student.swift */,
@@ -155,6 +158,7 @@
 				33AF982B2B9FF8D6001C1D93 /* PushButton.swift in Sources */,
 				33AF982F2BA1245B001C1D93 /* Book.swift in Sources */,
 				33AF982D2BA00137001C1D93 /* Student.swift in Sources */,
+				33AF98332BA129BE001C1D93 /* RatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
