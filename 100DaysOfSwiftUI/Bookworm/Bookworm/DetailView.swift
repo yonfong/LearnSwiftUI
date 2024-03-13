@@ -22,14 +22,18 @@ struct DetailView: View {
                     .resizable()
                     .scaledToFit()
                 
-                Text(book.genre.uppercased())
-                    .font(.caption)
-                    .fontWeight(.black)
-                    .padding(8)
-                    .foregroundStyle(.white)
-                    .background(.black.opacity(0.3))
-                    .clipShape(.capsule)
-                    .offset(x: -5, y: -5)
+                HStack {
+                    Text(book.genre.uppercased())
+                        .clipShape(.capsule)
+                    Spacer()
+                    Text(book.date.formatted())
+                        .foregroundStyle(.white)
+                }
+                .font(.caption)
+                .fontWeight(.black)
+                .foregroundStyle(.white)
+                .background(.black.opacity(0.3))
+                .padding(8)
             })
             
             Text(book.author)
