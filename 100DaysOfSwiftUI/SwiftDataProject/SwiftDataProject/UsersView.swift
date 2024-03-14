@@ -9,11 +9,33 @@ import SwiftUI
 import SwiftData
 
 struct UsersView: View {
+    @Environment(\.modelContext) var modelContext
     @Query var users: [User]
     
     var body: some View {
-        List(users) { user in
-            Text(user.name)
+        List() {
+            ForEach(users) { user in
+                HStack {
+                    Text(user.name)
+                    Spacer()
+                    if !user.jobs.isEmpty {
+                        VStack {
+                            ForEach(user.jobs) { job in
+                                Text(job.name)
+                            }
+                        }
+                    }
+                    
+//                    Text(String(user.jobs.count))
+//                        .fontWeight(.black)
+//                        .padding(.horizontal, 10)
+//                        .padding(.vertical, 5)
+//                        .background(.blue)
+//                        .foregroundStyle(.white)
+//                        .clipShape(.capsule)
+                }
+            }
+            .onDelete(perform: deleteItems)
         }
     }
     
@@ -21,6 +43,13 @@ struct UsersView: View {
         _users = Query(filter: #Predicate<User> { user in
             user.joinDate >= minimumJoinDate
         }, sort: sortOrder)
+    }
+    
+    func deleteItems(as offsets: IndexSet) {
+        for offset in offsets {
+            let user = users[offset]
+            modelContext.delete(user)
+        }
     }
 }
 

@@ -14,6 +14,7 @@
 		33AF99FB2BA1E061001C1D93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF99FA2BA1E061001C1D93 /* User.swift */; };
 		33AF99FD2BA1E0B6001C1D93 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF99FC2BA1E0B6001C1D93 /* EditUserView.swift */; };
 		33AF99FF2BA27C52001C1D93 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF99FE2BA27C52001C1D93 /* UsersView.swift */; };
+		33AF9A012BA2958D001C1D93 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AF9A002BA2958D001C1D93 /* Job.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		33AF99FA2BA1E061001C1D93 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		33AF99FC2BA1E0B6001C1D93 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		33AF99FE2BA27C52001C1D93 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		33AF9A002BA2958D001C1D93 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 		33AF99E02BA1DFEA001C1D93 = {
 			isa = PBXGroup;
 			children = (
+				33AF9A002BA2958D001C1D93 /* Job.swift */,
 				33AF99EB2BA1DFEA001C1D93 /* SwiftDataProject */,
 				33AF99EA2BA1DFEA001C1D93 /* Products */,
 			);
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33AF99FF2BA27C52001C1D93 /* UsersView.swift in Sources */,
+				33AF9A012BA2958D001C1D93 /* Job.swift in Sources */,
 				33AF99EF2BA1DFEA001C1D93 /* ContentView.swift in Sources */,
 				33AF99FD2BA1E0B6001C1D93 /* EditUserView.swift in Sources */,
 				33AF99ED2BA1DFEA001C1D93 /* SwiftDataProjectApp.swift in Sources */,
