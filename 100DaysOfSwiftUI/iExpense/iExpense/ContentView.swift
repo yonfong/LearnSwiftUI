@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Observation
+import SwiftData
 
 //@Observable
 //class User {
@@ -32,76 +33,62 @@ struct SecondView: View {
 }
 
 struct ContentView: View {
-    @State private var user = User()
-    @State private var showingSheet = false
-    
-    @State private var numbers = [Int]()
-    @State private var currentNumber = 1
+//    @State private var user = User()
+//    @State private var showingSheet = false
+//    
+//    @State private var numbers = [Int]()
+//    @State private var currentNumber = 1
     
 //    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
     
     @AppStorage("tapCount") private var tapCount = 0
     
-    @State private var expenses = Expenses()
-    @State private var showingAddExpense = false
+//    @State private var expenses = Expenses()
+//    @State private var showingAddExpense = false
     
+    @Environment(\.modelContext) var modelContext
+//    @Query(sort: sortOrder) var items: [ExpenseItem]
+    
+    @State private var sortOrder = [
+        SortDescriptor(\ExpenseItem.name),
+        SortDescriptor(\ExpenseItem.amount)
+    ]
     
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ForEach(expenses.items.filter{ return $0.type == "Personal"}) { item in
-                        NavigationLink(value: item) {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(item.name)
-                                        .font(.headline)
-                                    Text(item.type)
-                                }
-                                
-                                Spacer()
-                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            }
-                        }
-                    }
-                    .onDelete(perform: removeItems)
-                }
-                
-                Section {
-                    ForEach(expenses.items.filter{ return $0.type != "Personal"}) { item in
-                        NavigationLink(value: item) {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(item.name)
-                                        .font(.headline)
-                                    Text(item.type)
-                                }
-                                
-                                Spacer()
-                                Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            }
-                        }
-                    }
-                    .onDelete(perform: removeItems)
-                }
-            }
+            ExpenseItemsView(type: "Business", sortOrder: sortOrder)
             .navigationTitle("iExpense")
             .toolbar {
-                NavigationLink {
-                    AddView(expenses: expenses)
-                } label: {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                        Picker("Sort", selection: $sortOrder) {
+                            Text("Sort By Name")
+                                .tag([
+                                    SortDescriptor(\ExpenseItem.name),
+                                    SortDescriptor(\ExpenseItem.amount)
+                                ])
+                            
+                            Text("Sort by Amount")
+                                .tag([
+                                    SortDescriptor(\ExpenseItem.amount),
+                                    SortDescriptor(\ExpenseItem.name)
+                                ])
+                        }
+                    }
                 }
-//                Button("Add Expense", systemImage: "plus") {
-////                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
-////                    expenses.items.append(expense)
-//                    showingAddExpense = true
-//                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        AddView()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
             }
         }
-        .sheet(isPresented: $showingAddExpense, content: {
-            AddView(expenses: expenses)
-        })
+//        .sheet(isPresented: $showingAddExpense, content: {
+////            AddView(expenses: expenses)
+//        })
         
         
         
@@ -151,9 +138,6 @@ struct ContentView: View {
 //        }
     }
     
-    func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
-    }
 }
 
 #Preview {

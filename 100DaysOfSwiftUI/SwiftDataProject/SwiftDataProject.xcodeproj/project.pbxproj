@@ -43,7 +43,6 @@
 		33AF99E02BA1DFEA001C1D93 = {
 			isa = PBXGroup;
 			children = (
-				33AF9A002BA2958D001C1D93 /* Job.swift */,
 				33AF99EB2BA1DFEA001C1D93 /* SwiftDataProject */,
 				33AF99EA2BA1DFEA001C1D93 /* Products */,
 			);
@@ -65,6 +64,7 @@
 				33AF99FC2BA1E0B6001C1D93 /* EditUserView.swift */,
 				33AF99EE2BA1DFEA001C1D93 /* ContentView.swift */,
 				33AF99FA2BA1E061001C1D93 /* User.swift */,
+				33AF9A002BA2958D001C1D93 /* Job.swift */,
 				33AF99F02BA1DFEC001C1D93 /* Assets.xcassets */,
 				33AF99F22BA1DFEC001C1D93 /* Preview Content */,
 			);
