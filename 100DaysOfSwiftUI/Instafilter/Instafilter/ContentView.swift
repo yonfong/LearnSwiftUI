@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import PhotosUI
 
 struct ContentView: View {
     @State private var blurAmount = 0.0 
@@ -17,19 +18,58 @@ struct ContentView: View {
     
     @State private var image: Image?
     
+//    @State private var pickerItem: PhotosPickerItem?
+//    @State private var selectedImage: Image?
+    
+    
+    @State private var pickerItems = [PhotosPickerItem]()
+    @State private var selectedImages = [Image]()
+    
     var body: some View {
-//        ContentUnavailableView("No snippets", systemImage: "swift", description: Text("You don't have any saved snippets yet."))
-        
-        ContentUnavailableView {
-            Label("No snippets", systemImage: "swift")
-        } description: {
-            Text("You don't have any saved snippets yet.")
-        } actions: {
-            Button("create Snippets") {
-                
+
+        VStack {
+            PhotosPicker("Select a picture", selection: $pickerItems, maxSelectionCount: 4, matching: .images)
+                .onChange(of: pickerItems) { oldValue, newValue in
+                    Task {
+                        selectedImages.removeAll()
+                        
+                        for item in pickerItems {
+                            if let loadedImage = try await item.loadTransferable(type: Image.self) {
+                                selectedImages.append(loadedImage)
+                            }
+                        }
+                    }
+                }
+            
+            PhotosPicker(selection: $pickerItems, maxSelectionCount: 3, matching: .any(of: [.images, .not(.screenshots)])) {
+                Label("Select a picture", systemImage: "photo")
+                Image(systemName: "photo")
             }
-            .buttonStyle(.borderedProminent)
+            
+//            selectedImage?
+//                .resizable()
+//                .scaledToFit()
+            
+            
+            ScrollView {
+                ForEach(0..<selectedImages.count, id: \.self) { index in
+                    selectedImages[index]
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
         }
+        
+//        ContentUnavailableView {
+//            Label("No snippets", systemImage: "swift")
+//        } description: {
+//            Text("You don't have any saved snippets yet.")
+//        } actions: {
+//            Button("create Snippets") {
+//                
+//            }
+//            .buttonStyle(.borderedProminent)
+//        }
 //        VStack {
 //            image?
 //                .resizable()
