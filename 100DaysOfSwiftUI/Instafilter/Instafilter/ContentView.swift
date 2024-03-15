@@ -9,6 +9,7 @@ import SwiftUI
 import CoreImage
 import CoreImage.CIFilterBuiltins
 import PhotosUI
+import StoreKit
 
 struct ContentView: View {
     @State private var blurAmount = 0.0 
@@ -21,6 +22,8 @@ struct ContentView: View {
 //    @State private var pickerItem: PhotosPickerItem?
 //    @State private var selectedImage: Image?
     
+    
+    @Environment(\.requestReview) var requestReview
     
     @State private var pickerItems = [PhotosPickerItem]()
     @State private var selectedImages = [Image]()
@@ -57,6 +60,9 @@ struct ContentView: View {
                 Label("Click to share", systemImage: "airplane")
             }
             
+            Button("Leave a review") {
+                requestReview()
+            }
 //            selectedImage?
 //                .resizable()
 //                .scaledToFit()
