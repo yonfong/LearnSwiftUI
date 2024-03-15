@@ -46,6 +46,17 @@ struct ContentView: View {
                 Image(systemName: "photo")
             }
             
+            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!, subject: Text("Learn swift"), message: Text("100 day in swiftui"))
+            
+            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!) {
+                Label("Spread the world about swift", systemImage: "swift")
+            }
+            
+            let example = Image(.test)
+            ShareLink(item:example, preview: SharePreview("Test", image: example)) {
+                Label("Click to share", systemImage: "airplane")
+            }
+            
 //            selectedImage?
 //                .resizable()
 //                .scaledToFit()
