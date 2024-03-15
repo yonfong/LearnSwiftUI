@@ -18,13 +18,25 @@ struct ContentView: View {
     @State private var image: Image?
     
     var body: some View {
-        VStack {
-            image?
-                .resizable()
-                .scaledToFit()
-                .padding()
+//        ContentUnavailableView("No snippets", systemImage: "swift", description: Text("You don't have any saved snippets yet."))
+        
+        ContentUnavailableView {
+            Label("No snippets", systemImage: "swift")
+        } description: {
+            Text("You don't have any saved snippets yet.")
+        } actions: {
+            Button("create Snippets") {
+                
+            }
+            .buttonStyle(.borderedProminent)
         }
-        .onAppear(perform: loadImage)
+//        VStack {
+//            image?
+//                .resizable()
+//                .scaledToFit()
+//                .padding()
+//        }
+//        .onAppear(perform: loadImage)
         
         
 //        VStack {
