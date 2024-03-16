@@ -37,6 +37,8 @@ struct ContentView: View {
     
     @State private var showingFilters = false
     
+    @AppStorage("filterCount") var filterCount = 0
+    
     
     var body: some View {
         
@@ -71,6 +73,9 @@ struct ContentView: View {
                     Spacer()
                     
                     // share the picture
+                    if let processedImage {
+                        ShareLink(item: processedImage, preview: SharePreview("Instafilter image", image: processedImage))
+                    }
                     
                 }
             }
@@ -218,9 +223,15 @@ struct ContentView: View {
         
     }
     
-    private func setFilter(_ filter: CIFilter) {
+    @MainActor private func setFilter(_ filter: CIFilter) {
         currentFilter = filter
         customLoadImage()
+        
+        filterCount += 1
+        
+        if filterCount >= 3 {
+            requestReview()
+        }
     }
     
     func loadImage() {
