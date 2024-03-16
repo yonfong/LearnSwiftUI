@@ -30,6 +30,7 @@ struct ContentView: View {
     
     @State private var processedImage: Image?
     @State private var filterIntensity = 0.5
+    @State private var radius = 0.5
     
     @State private var selectedItem: PhotosPickerItem?
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
@@ -60,12 +61,21 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                HStack {
-                    Text("Intensity")
-                    Slider(value: $filterIntensity)
-                        .onChange(of: filterIntensity, applyProcessing)
+                VStack {
+                    HStack {
+                        Text("Radius")
+                        Slider(value: $filterIntensity)
+                            .onChange(of: filterIntensity, applyProcessing)
+                    }
+                    
+                    HStack {
+                        Text("Intensity")
+                        Slider(value: $radius)
+                            .onChange(of: radius, applyProcessing)
+                    }
                 }
                 .padding(.vertical)
+                .disabled(selectedItem == nil)
                 
                 HStack {
                     Button("Change filter", action: changeFilter)
@@ -78,6 +88,7 @@ struct ContentView: View {
                     }
                     
                 }
+                .disabled(selectedItem == nil)
             }
             .padding([.horizontal, .bottom])
             .navigationTitle("Instafilter")
@@ -89,6 +100,11 @@ struct ContentView: View {
                 Button("Sepia Tone") { setFilter(CIFilter.sepiaTone()) }
                 Button("Unsharp Mask") { setFilter(CIFilter.unsharpMask()) }
                 Button("Vignette") { setFilter(CIFilter.vignette()) }
+                
+                Button("zoomBlur") { setFilter(CIFilter.zoomBlur()) }
+                Button("morphologyGradient") { setFilter(CIFilter.morphologyGradient()) }
+                Button("spotLight") { setFilter(CIFilter.spotLight()) }
+                
                 Button("Cancel", role: .cancel) { }
             }
         }
@@ -212,7 +228,7 @@ struct ContentView: View {
         let inputKeys = currentFilter.inputKeys
         
         if inputKeys.contains(kCIInputIntensityKey) { currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey) }
-        if inputKeys.contains(kCIInputRadiusKey) { currentFilter.setValue(filterIntensity * 200, forKey: kCIInputRadiusKey) }
+        if inputKeys.contains(kCIInputRadiusKey) { currentFilter.setValue(radius * 200, forKey: kCIInputRadiusKey) }
         if inputKeys.contains(kCIInputScaleKey) { currentFilter.setValue(filterIntensity * 10, forKey: kCIInputScaleKey) }
         
         guard let outImage = currentFilter.outputImage else { return }
