@@ -28,54 +28,93 @@ struct ContentView: View {
     @State private var pickerItems = [PhotosPickerItem]()
     @State private var selectedImages = [Image]()
     
+    @State private var processedImage: Image?
+    @State private var filterIntensity = 0.5
+    
+    
     var body: some View {
-
-        VStack {
-            PhotosPicker("Select a picture", selection: $pickerItems, maxSelectionCount: 4, matching: .images)
-                .onChange(of: pickerItems) { oldValue, newValue in
-                    Task {
-                        selectedImages.removeAll()
-                        
-                        for item in pickerItems {
-                            if let loadedImage = try await item.loadTransferable(type: Image.self) {
-                                selectedImages.append(loadedImage)
-                            }
-                        }
-                    }
-                }
-            
-            PhotosPicker(selection: $pickerItems, maxSelectionCount: 3, matching: .any(of: [.images, .not(.screenshots)])) {
-                Label("Select a picture", systemImage: "photo")
-                Image(systemName: "photo")
-            }
-            
-            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!, subject: Text("Learn swift"), message: Text("100 day in swiftui"))
-            
-            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!) {
-                Label("Spread the world about swift", systemImage: "swift")
-            }
-            
-            let example = Image(.test)
-            ShareLink(item:example, preview: SharePreview("Test", image: example)) {
-                Label("Click to share", systemImage: "airplane")
-            }
-            
-            Button("Leave a review") {
-                requestReview()
-            }
-//            selectedImage?
-//                .resizable()
-//                .scaledToFit()
-            
-            
-            ScrollView {
-                ForEach(0..<selectedImages.count, id: \.self) { index in
-                    selectedImages[index]
+        
+        NavigationStack {
+            VStack {
+                Spacer()
+                // image area
+                
+                if let processedImage {
+                    processedImage
                         .resizable()
                         .scaledToFit()
+                } else {
+                    ContentUnavailableView("No picture", systemImage: "photo.badge.plus", description: Text("Tap to import a photo"))
+                }
+                
+                Spacer()
+                
+                HStack {
+                    Text("Intensity")
+                    Slider(value: $filterIntensity)
+                }
+                .padding(.vertical)
+                
+                HStack {
+                    Button("Change filter", action: changeFilter)
+                    
+                    Spacer()
+                    
+                    // share the picture
+                    
                 }
             }
+            .padding([.horizontal, .bottom])
+            .navigationTitle("Instafilter")
         }
+        
+
+//        VStack {
+//            PhotosPicker("Select a picture", selection: $pickerItems, maxSelectionCount: 4, matching: .images)
+//                .onChange(of: pickerItems) { oldValue, newValue in
+//                    Task {
+//                        selectedImages.removeAll()
+//                        
+//                        for item in pickerItems {
+//                            if let loadedImage = try await item.loadTransferable(type: Image.self) {
+//                                selectedImages.append(loadedImage)
+//                            }
+//                        }
+//                    }
+//                }
+//            
+//            PhotosPicker(selection: $pickerItems, maxSelectionCount: 3, matching: .any(of: [.images, .not(.screenshots)])) {
+//                Label("Select a picture", systemImage: "photo")
+//                Image(systemName: "photo")
+//            }
+//            
+//            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!, subject: Text("Learn swift"), message: Text("100 day in swiftui"))
+//            
+//            ShareLink(item: URL(string: "https://www.hackingwithswift.com")!) {
+//                Label("Spread the world about swift", systemImage: "swift")
+//            }
+//            
+//            let example = Image(.test)
+//            ShareLink(item:example, preview: SharePreview("Test", image: example)) {
+//                Label("Click to share", systemImage: "airplane")
+//            }
+//            
+//            Button("Leave a review") {
+//                requestReview()
+//            }
+////            selectedImage?
+////                .resizable()
+////                .scaledToFit()
+//            
+//            
+//            ScrollView {
+//                ForEach(0..<selectedImages.count, id: \.self) { index in
+//                    selectedImages[index]
+//                        .resizable()
+//                        .scaledToFit()
+//                }
+//            }
+//        }
         
 //        ContentUnavailableView {
 //            Label("No snippets", systemImage: "swift")
@@ -125,6 +164,10 @@ struct ContentView: View {
 //            Text("Select a new color")
 //        }
 
+    }
+    
+    private func changeFilter() {
+        
     }
     
     func loadImage() {
