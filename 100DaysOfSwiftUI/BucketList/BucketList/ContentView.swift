@@ -31,11 +31,11 @@ struct FailedView: View {
     }
 }
 
-struct Location: Identifiable {
-    let id = UUID()
-    var name: String
-    var coordinate: CLLocationCoordinate2D
-}
+//struct Location: Identifiable {
+//    let id = UUID()
+//    var name: String
+//    var coordinate: CLLocationCoordinate2D
+//}
 
 struct ContentView: View {
     @State private var loadingState = LoadingState.loading
@@ -47,14 +47,43 @@ struct ContentView: View {
         )
     )
     
-    let locations = [
-        Location(name: "Buckingham Palace", coordinate: CLLocationCoordinate2D(latitude: 51.501, longitude: -0.141)),
-        Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
-    ]
+//    let locations = [
+//        Location(name: "Buckingham Palace", coordinate: CLLocationCoordinate2D(latitude: 51.501, longitude: -0.141)),
+//        Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
+//    ]
     
     @State private var isUnlocked = false
     
+    
+    let startPosition = MapCameraPosition.region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 56, longitude: -3),
+            span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+        )
+    )
+    
+    @State private var locations = [Location]()
+    
     var body: some View {
+        MapReader { proxy in
+            Map(initialPosition: startPosition) {
+                ForEach(locations) { location in
+                    Marker(location.name, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                }
+            }
+                .onTapGesture { position in
+                    if let coordinate = proxy.convert(position, from: .local) {
+                        print("Tapped at \(coordinate)")
+                        
+                        let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: coordinate.latitude, longitude: coordinate.longitude)
+                        locations.append(newLocation)
+                    }
+                }
+        }
+        
+        
+        
+        
 //        switch loadingState {
 //        case .loading:
 //            LoadingView()
@@ -64,10 +93,10 @@ struct ContentView: View {
 //            FailedView()
 //        }
         
-        VStack {
-            Text(isUnlocked ? "Unlocked" : "Locked")
-        }
-        .onAppear(perform: authenticate)
+//        VStack {
+//            Text(isUnlocked ? "Unlocked" : "Locked")
+//        }
+//        .onAppear(perform: authenticate)
         
 //        VStack {
 //            MapReader { proxy in
