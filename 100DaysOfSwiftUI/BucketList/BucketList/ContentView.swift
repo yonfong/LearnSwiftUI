@@ -66,6 +66,8 @@ struct ContentView: View {
     
     @State private var selectedPlace: Location?
     
+    
+    
     var body: some View {
         MapReader { proxy in
             Map(initialPosition: startPosition) {
