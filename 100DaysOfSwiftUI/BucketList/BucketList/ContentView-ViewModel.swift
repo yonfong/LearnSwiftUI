@@ -16,9 +16,13 @@ extension ContentView {
         private(set) var locations: [Location]
         var selectedPlace: Location?
         
-        var isUnlocked = false
+        var isUnlocked = true
         
         let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
+        
+        var isStandardMapStyle = true
+        
+        var showAuthorFailedAlert = false
         
         func addLocation(at point: CLLocationCoordinate2D) {
             let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: point.latitude, longitude: point.longitude)
@@ -68,11 +72,11 @@ extension ContentView {
                     if success {
                         self.isUnlocked = true
                     } else {
-                        
+                        self.showAuthorFailedAlert = true
                     }
                 }
             } else {
-                
+                self.showAuthorFailedAlert = true
             }
         }
     }

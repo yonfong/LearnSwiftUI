@@ -69,27 +69,27 @@ struct ContentView: View {
     @State private var viewModel = ViewModel()
     
     var body: some View {
-        MapReader { proxy in
-            
-            
+        ZStack(alignment: .bottomTrailing, content: {
             if viewModel.isUnlocked {
-                Map(initialPosition: startPosition) {
-                    ForEach(viewModel.locations) { location in
-                        //                    Marker(location.name, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-                        
-                        Annotation(location.name, coordinate: location.coordinate) {
-                            Image(systemName: "star.circle")
-                                .resizable()
-                                .foregroundStyle(.red)
-                                .frame(width: 44, height: 44)
-                                .background(.white)
-                                .clipShape(.circle)
-                                .onLongPressGesture {
-                                    viewModel.selectedPlace = location
-                                }
+                MapReader { proxy in
+                    Map(initialPosition: startPosition) {
+                        ForEach(viewModel.locations) { location in
+                            //                    Marker(location.name, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                            
+                            Annotation(location.name, coordinate: location.coordinate) {
+                                Image(systemName: "star.circle")
+                                    .resizable()
+                                    .foregroundStyle(.red)
+                                    .frame(width: 44, height: 44)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                    .onLongPressGesture {
+                                        viewModel.selectedPlace = location
+                                    }
+                            }
                         }
                     }
-                }
+                    .mapStyle(viewModel.isStandardMapStyle ? .standard : .hybrid)
                     .onTapGesture { position in
                         if let coordinate = proxy.convert(position, from: .local) {
                             print("Tapped at \(coordinate)")
@@ -97,6 +97,11 @@ struct ContentView: View {
                             viewModel.addLocation(at: coordinate)
                         }
                     }
+                }
+                
+                Toggle(isOn: $viewModel.isStandardMapStyle, label: {
+                    Text("Map style \(viewModel.isStandardMapStyle ? "standard" : "hybrid")")
+                })
                 
             } else {
                 Button("Unlock Places", action: viewModel.authenticate)
@@ -105,12 +110,17 @@ struct ContentView: View {
                     .foregroundStyle(.white)
                     .clipShape(.capsule)
             }
-        }
+        })
         .sheet(item: $viewModel.selectedPlace) { place in
             EditView(location: place) { newLocation in
                 viewModel.update(location: newLocation)
             }
         }
+        .alert("Author falied", isPresented: $viewModel.showAuthorFailedAlert) {
+            Button("Sure") { }
+        }
+
+    }
         
         
         
@@ -195,26 +205,7 @@ struct ContentView: View {
 //                print(error.localizedDescription)
 //            }
 //        }
-    }
-    
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-            let reason = "We need to unlock your data."
-            
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
-                if success {
-                    isUnlocked = true
-                } else {
-                    
-                }
-            }
-        } else {
-            
-        }
-    }
+
 }
 
 #Preview {

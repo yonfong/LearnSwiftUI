@@ -11,28 +11,30 @@ struct EditView: View {
     @Environment(\.dismiss) var dismiss
     
     var location: Location
-    @State private var name: String
-    @State private var description: String
-    
-    @State private var loadingState = LoadingState.loading
-    @State private var pages = [Page]()
+//    @State private var name: String
+//    @State private var description: String
+//    
+//    @State private var loadingState = LoadingState.loading
+//    @State private var pages = [Page]()
     
     var onSave:(Location) -> Void
+    
+    @State private var viewModel: ViewModel
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Place name", text: $name)
-                    TextField("Place descripiton", text: $description)
+                    TextField("Place name", text: $viewModel.name)
+                    TextField("Place descripiton", text: $viewModel.description)
                 }
                 
                 Section("Nearby……") {
-                    switch loadingState {
+                    switch viewModel.loadingState {
                     case .loading:
                         Text("Loading……")
                     case .success:
-                        ForEach(pages, id: \.pageid) { page in
+                        ForEach(viewModel.pages, id: \.pageid) { page in
                             Text(page.title)
                                 .font(.headline)
                             + Text(": ") +
@@ -49,15 +51,17 @@ struct EditView: View {
                 Button("Save") {
                     var newLocation = location
                     newLocation.id = UUID()
-                    newLocation.name = name
-                    newLocation.description = description
+                    newLocation.name = viewModel.name
+                    newLocation.description = viewModel.description
+                    
+                    
                     onSave(newLocation)
                     
                     dismiss()
                 }
             }
             .task {
-                await fetchNearbyPlaces()
+                await viewModel.fetchNearbyPlaces()
             }
         }
     }
@@ -65,31 +69,33 @@ struct EditView: View {
     init(location: Location, onSave: @escaping (Location) -> Void) {
         self.location = location
         self.onSave = onSave
+        let model = ViewModel(location: location, name: location.name, description: location.description)
+        _viewModel = State(initialValue: model)
         
-        _name = State(initialValue: location.name)
-        _description = State(initialValue: location.description)
+//        _name = State(initialValue: location.name)
+//        _description = State(initialValue: location.description)
     }
     
-    func fetchNearbyPlaces() async {
-        let urlString = "https://en.wikipedia.org/w/api.php?ggscoord=\(location.latitude)%7C\(location.longitude)&action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=500&pilimit=50&wbptterms=description&generator=geosearch&ggsradius=10000&ggslimit=50&format=json"
-        
-        guard let url
-                = URL(string: urlString) else {
-                    print("bad url: \(urlString)")
-                    return
-                }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            let items = try JSONDecoder().decode(Result.self, from: data)
-            
-            pages = items.query.pages.values.sorted()
-            
-            loadingState = .success
-        } catch {
-            loadingState = .failed
-        }
-    }
+//    func fetchNearbyPlaces() async {
+//        let urlString = "https://en.wikipedia.org/w/api.php?ggscoord=\(location.latitude)%7C\(location.longitude)&action=query&prop=coordinates%7Cpageimages%7Cpageterms&colimit=50&piprop=thumbnail&pithumbsize=500&pilimit=50&wbptterms=description&generator=geosearch&ggsradius=10000&ggslimit=50&format=json"
+//        
+//        guard let url
+//                = URL(string: urlString) else {
+//                    print("bad url: \(urlString)")
+//                    return
+//                }
+//        do {
+//            let (data, _) = try await URLSession.shared.data(from: url)
+//            
+//            let items = try JSONDecoder().decode(Result.self, from: data)
+//            
+//            pages = items.query.pages.values.sorted()
+//            
+//            loadingState = .success
+//        } catch {
+//            loadingState = .failed
+//        }
+//    }
 }
 
 #Preview {
