@@ -70,31 +70,41 @@ struct ContentView: View {
     
     var body: some View {
         MapReader { proxy in
-            Map(initialPosition: startPosition) {
-                ForEach(viewModel.locations) { location in
-//                    Marker(location.name, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-                    
-                    Annotation(location.name, coordinate: location.coordinate) {
-                        Image(systemName: "star.circle")
-                            .resizable()
-                            .foregroundStyle(.red)
-                            .frame(width: 44, height: 44)
-                            .background(.white)
-                            .clipShape(.circle)
-                            .onLongPressGesture {
-                                viewModel.selectedPlace = location
-                            }
-                    }
-                    
-                }
-            }
-                .onTapGesture { position in
-                    if let coordinate = proxy.convert(position, from: .local) {
-                        print("Tapped at \(coordinate)")
+            
+            
+            if viewModel.isUnlocked {
+                Map(initialPosition: startPosition) {
+                    ForEach(viewModel.locations) { location in
+                        //                    Marker(location.name, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
                         
-                        viewModel.addLocation(at: coordinate)
+                        Annotation(location.name, coordinate: location.coordinate) {
+                            Image(systemName: "star.circle")
+                                .resizable()
+                                .foregroundStyle(.red)
+                                .frame(width: 44, height: 44)
+                                .background(.white)
+                                .clipShape(.circle)
+                                .onLongPressGesture {
+                                    viewModel.selectedPlace = location
+                                }
+                        }
                     }
                 }
+                    .onTapGesture { position in
+                        if let coordinate = proxy.convert(position, from: .local) {
+                            print("Tapped at \(coordinate)")
+                            
+                            viewModel.addLocation(at: coordinate)
+                        }
+                    }
+                
+            } else {
+                Button("Unlock Places", action: viewModel.authenticate)
+                    .padding()
+                    .background(.blue)
+                    .foregroundStyle(.white)
+                    .clipShape(.capsule)
+            }
         }
         .sheet(item: $viewModel.selectedPlace) { place in
             EditView(location: place) { newLocation in
