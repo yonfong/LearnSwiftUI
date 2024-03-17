@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import LocalAuthentication
 
 enum LoadingState {
     case loading, success, failed
@@ -51,6 +52,8 @@ struct ContentView: View {
         Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
     ]
     
+    @State private var isUnlocked = false
+    
     var body: some View {
 //        switch loadingState {
 //        case .loading:
@@ -62,56 +65,62 @@ struct ContentView: View {
 //        }
         
         VStack {
-            MapReader { proxy in
-                Map()
-                    .onTapGesture { position in
-                        if let coordinate = proxy.convert(position, from: .local) {
-                            print(coordinate)
-                        }
-                    }
-            }
-            
-            Map(position: $position) {
-                ForEach(locations) { location in
-//                    Marker(location.name, coordinate: location.coordinate)
-                    Annotation(location.name, coordinate: location.coordinate) {
-                        Text(location.name)
-                            .font(.headline)
-                            .padding()
-                            .background(.blue)
-                            .foregroundStyle(.white)
-                            .clipShape(.capsule)
-                    }
-                    .annotationTitles(.hidden)
-                }
-            }
-                .onMapCameraChange { context in
-                    print(context.region)
-                }
-                .onMapCameraChange(frequency: .continuous) { context in
-                    print(context.region)
-                }
-            
-            HStack(spacing: 50) {
-                Button("Paris") {
-                    position = MapCameraPosition.region(
-                        MKCoordinateRegion(
-                            center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
-                            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                        )
-                    )
-                }
-
-                Button("Tokyo") {
-                    position = MapCameraPosition.region(
-                        MKCoordinateRegion(
-                            center: CLLocationCoordinate2D(latitude: 35.6897, longitude: 139.6922),
-                            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-                        )
-                    )
-                }
-            }
+            Text(isUnlocked ? "Unlocked" : "Locked")
         }
+        .onAppear(perform: authenticate)
+        
+//        VStack {
+//            MapReader { proxy in
+//                Map()
+//                    .onTapGesture { position in
+//                        if let coordinate = proxy.convert(position, from: .local) {
+//                            print(coordinate)
+//                        }
+//                    }
+//            }
+//            
+//            Map(position: $position) {
+//                ForEach(locations) { location in
+////                    Marker(location.name, coordinate: location.coordinate)
+//                    Annotation(location.name, coordinate: location.coordinate) {
+//                        Text(location.name)
+//                            .font(.headline)
+//                            .padding()
+//                            .background(.blue)
+//                            .foregroundStyle(.white)
+//                            .clipShape(.capsule)
+//                    }
+//                    .annotationTitles(.hidden)
+//                }
+//            }
+//                .onMapCameraChange { context in
+//                    print(context.region)
+//                }
+//                .onMapCameraChange(frequency: .continuous) { context in
+//                    print(context.region)
+//                }
+//            
+//            HStack(spacing: 50) {
+//                Button("Paris") {
+//                    position = MapCameraPosition.region(
+//                        MKCoordinateRegion(
+//                            center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
+//                            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+//                        )
+//                    )
+//                }
+//
+//                Button("Tokyo") {
+//                    position = MapCameraPosition.region(
+//                        MKCoordinateRegion(
+//                            center: CLLocationCoordinate2D(latitude: 35.6897, longitude: 139.6922),
+//                            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+//                        )
+//                    )
+//                }
+//            }
+//        }
+        
         
         
 //        Button("Read and write") {
@@ -126,6 +135,25 @@ struct ContentView: View {
 //                print(error.localizedDescription)
 //            }
 //        }
+    }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            let reason = "We need to unlock your data."
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                if success {
+                    isUnlocked = true
+                } else {
+                    
+                }
+            }
+        } else {
+            
+        }
     }
 }
 
