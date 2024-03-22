@@ -21,40 +21,56 @@ struct ContentView: View {
     @State private var backgroundColor = Color.red
     
     var body: some View {
-        VStack {
-            Text("Hellor, world")
-                .padding()
-                .background(backgroundColor)
-            
-            Text("Change color")
-                .padding()
-                .contextMenu {
-                    Button("Red", systemImage: "checkmark.circle.fill") {
-                        backgroundColor = .red
-                    }
-                    .foregroundStyle(.red)
-                    
-                    Button("Green") {
-                        backgroundColor = .green
-                    }
-                    
-                    Button("Blue") {
-                        backgroundColor = .blue
+        List {
+            Text("Taylor swift")
+                .swipeActions {
+                    Button("Send message", systemImage: "message", role: .destructive) {
+                        print("Hi")
                     }
                 }
-                
-            
-            Image(.example)
-                .interpolation(.none)
-                .resizable()
-                .scaledToFit()
-                .background(.black)
-            
-            Text(output)
-                .task {
-                    await fetchReadings()
+                .swipeActions(edge: .leading) {
+                    Button("Pin", systemImage: "pin") {
+                        print("Pinning")
+                    }
+                    .tint(.orange)
                 }
         }
+        
+        
+//        VStack {
+//            Text("Hellor, world")
+//                .padding()
+//                .background(backgroundColor)
+//            
+//            Text("Change color")
+//                .padding()
+//                .contextMenu {
+//                    Button("Red", systemImage: "checkmark.circle.fill") {
+//                        backgroundColor = .red
+//                    }
+//                    .foregroundStyle(.red)
+//                    
+//                    Button("Green") {
+//                        backgroundColor = .green
+//                    }
+//                    
+//                    Button("Blue") {
+//                        backgroundColor = .blue
+//                    }
+//                }
+//                
+//            
+//            Image(.example)
+//                .interpolation(.none)
+//                .resizable()
+//                .scaledToFit()
+//                .background(.black)
+//            
+//            Text(output)
+//                .task {
+//                    await fetchReadings()
+//                }
+//        }
         
         
 //        TabView(selection: $selectedTab) {
