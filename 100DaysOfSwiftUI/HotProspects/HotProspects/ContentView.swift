@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
     let users = ["zhangsna", "lisi", "wangwu", "zhaoliu"]
@@ -21,20 +22,48 @@ struct ContentView: View {
     @State private var backgroundColor = Color.red
     
     var body: some View {
-        List {
-            Text("Taylor swift")
-                .swipeActions {
-                    Button("Send message", systemImage: "message", role: .destructive) {
-                        print("Hi")
+        VStack {
+            Button("Request permission") {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { sucess, error in
+                    if sucess {
+                        print("All set")
+                    } else if let error {
+                        print(error.localizedDescription)
                     }
                 }
-                .swipeActions(edge: .leading) {
-                    Button("Pin", systemImage: "pin") {
-                        print("Pinning")
-                    }
-                    .tint(.orange)
-                }
+            }
+            .padding()
+            
+            Button("Schedule Notification") {
+                let content = UNMutableNotificationContent()
+                content.title = "Feed the cat"
+                content.subtitle = "It looks hungry"
+                content.sound = UNNotificationSound.default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request)
+            }
+            .padding()
         }
+        
+        
+        
+//        List {
+//            Text("Taylor swift")
+//                .swipeActions {
+//                    Button("Send message", systemImage: "message", role: .destructive) {
+//                        print("Hi")
+//                    }
+//                }
+//                .swipeActions(edge: .leading) {
+//                    Button("Pin", systemImage: "pin") {
+//                        print("Pinning")
+//                    }
+//                    .tint(.orange)
+//                }
+//        }
         
         
 //        VStack {
