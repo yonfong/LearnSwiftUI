@@ -12,17 +12,39 @@ struct ContentView: View {
     
 //    @State private var selection: String?
     
+    @State private var selectedTab = "One"
+    
     @State private var selection = Set<String>()
     
     var body: some View {
-        List(users, id: \.self, selection: $selection) { user in
-            Text(user)
+        TabView(selection: $selectedTab) {
+            VStack {
+                Text("Tab 1")
+                
+                Button("Show tab 2") {
+                    selectedTab = "Two"
+                }
+            }
+            .tabItem {
+                Label("One", systemImage: "star")
+            }
+            .tag("One")
+            
+            Text("Tab 2")
+                .tabItem {
+                    Label("Two", systemImage: "circle")
+                }
+                .tag("Two")
         }
         
-        if  !selection.isEmpty {
-            Text("You slected \(selection.formatted())")
-        }
-        EditButton()
+//        List(users, id: \.self, selection: $selection) { user in
+//            Text(user)
+//        }
+//        
+//        if  !selection.isEmpty {
+//            Text("You slected \(selection.formatted())")
+//        }
+//        EditButton()
     }
 }
 
