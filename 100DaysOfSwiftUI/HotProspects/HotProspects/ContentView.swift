@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UserNotifications
+import SamplePackage
 
 struct ContentView: View {
     let users = ["zhangsna", "lisi", "wangwu", "zhaoliu"]
@@ -21,32 +22,44 @@ struct ContentView: View {
     
     @State private var backgroundColor = Color.red
     
+    let possibleNumbers = 1...60
+    
+    var results: String {
+        let seleted = possibleNumbers.random(7).sorted()
+        let strings = seleted.map(String.init)
+        
+        return strings.formatted()
+    }
+    
     var body: some View {
-        VStack {
-            Button("Request permission") {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { sucess, error in
-                    if sucess {
-                        print("All set")
-                    } else if let error {
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-            .padding()
-            
-            Button("Schedule Notification") {
-                let content = UNMutableNotificationContent()
-                content.title = "Feed the cat"
-                content.subtitle = "It looks hungry"
-                content.sound = UNNotificationSound.default
-                
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                
-                UNUserNotificationCenter.current().add(request)
-            }
-            .padding()
-        }
+        
+        Text(results)
+        
+//        VStack {
+//            Button("Request permission") {
+//                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { sucess, error in
+//                    if sucess {
+//                        print("All set")
+//                    } else if let error {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//            }
+//            .padding()
+//            
+//            Button("Schedule Notification") {
+//                let content = UNMutableNotificationContent()
+//                content.title = "Feed the cat"
+//                content.subtitle = "It looks hungry"
+//                content.sound = UNNotificationSound.default
+//                
+//                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+//                
+//                UNUserNotificationCenter.current().add(request)
+//            }
+//            .padding()
+//        }
         
         
         
