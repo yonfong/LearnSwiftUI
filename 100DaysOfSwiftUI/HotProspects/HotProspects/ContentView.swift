@@ -18,18 +18,43 @@ struct ContentView: View {
     
     @State private var output = ""
     
+    @State private var backgroundColor = Color.red
+    
     var body: some View {
-        
-        Image(.example)
-            .interpolation(.none)
-            .resizable()
-            .scaledToFit()
-            .background(.black)
-        
-        Text(output)
-            .task {
-                await fetchReadings()
-            }
+        VStack {
+            Text("Hellor, world")
+                .padding()
+                .background(backgroundColor)
+            
+            Text("Change color")
+                .padding()
+                .contextMenu {
+                    Button("Red", systemImage: "checkmark.circle.fill") {
+                        backgroundColor = .red
+                    }
+                    .foregroundStyle(.red)
+                    
+                    Button("Green") {
+                        backgroundColor = .green
+                    }
+                    
+                    Button("Blue") {
+                        backgroundColor = .blue
+                    }
+                }
+                
+            
+            Image(.example)
+                .interpolation(.none)
+                .resizable()
+                .scaledToFit()
+                .background(.black)
+            
+            Text(output)
+                .task {
+                    await fetchReadings()
+                }
+        }
         
         
 //        TabView(selection: $selectedTab) {
