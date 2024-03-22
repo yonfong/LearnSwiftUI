@@ -20,6 +20,12 @@ struct ContentView: View {
     
     var body: some View {
         
+        Image(.example)
+            .interpolation(.none)
+            .resizable()
+            .scaledToFit()
+            .background(.black)
+        
         Text(output)
             .task {
                 await fetchReadings()
