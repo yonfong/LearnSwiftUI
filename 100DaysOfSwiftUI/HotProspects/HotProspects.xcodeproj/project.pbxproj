@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3316A4E92BAF160600DEEA97 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316A4E82BAF160600DEEA97 /* EditView.swift */; };
 		33947B902BAE582700B3793D /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33947B8F2BAE582700B3793D /* ProspectsView.swift */; };
 		33947B922BAE583800B3793D /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33947B912BAE583800B3793D /* MeView.swift */; };
 		33947B942BAE5A7200B3793D /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33947B932BAE5A7200B3793D /* Prospect.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3316A4E82BAF160600DEEA97 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		33947B8F2BAE582700B3793D /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		33947B912BAE583800B3793D /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		33947B932BAE5A7200B3793D /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				33C799482BAD043500E65973 /* ContentView.swift */,
 				33947B932BAE5A7200B3793D /* Prospect.swift */,
 				33947B8F2BAE582700B3793D /* ProspectsView.swift */,
+				3316A4E82BAF160600DEEA97 /* EditView.swift */,
 				33947B912BAE583800B3793D /* MeView.swift */,
 				33C7994A2BAD043700E65973 /* Assets.xcassets */,
 				33C7994C2BAD043700E65973 /* Preview Content */,
@@ -160,6 +163,7 @@
 			files = (
 				33947B922BAE583800B3793D /* MeView.swift in Sources */,
 				33947B942BAE5A7200B3793D /* Prospect.swift in Sources */,
+				3316A4E92BAF160600DEEA97 /* EditView.swift in Sources */,
 				33947B902BAE582700B3793D /* ProspectsView.swift in Sources */,
 				33C799492BAD043500E65973 /* ContentView.swift in Sources */,
 				33C799472BAD043500E65973 /* HotProspectsApp.swift in Sources */,

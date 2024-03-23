@@ -38,12 +38,25 @@ struct ProspectsView: View {
     var body: some View {
         NavigationStack {
             List(prospects, selection: $selectedProspects) { prospect in
-                VStack(alignment: .leading, content: {
-                    Text(prospect.name)
-                        .font(.headline)
-                    Text(prospect.emailAddress)
-                        .foregroundStyle(.secondary)
-                })
+                NavigationLink {
+                    EditView(prospect: prospect)
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading, content: {
+                            Text(prospect.name)
+                                .font(.headline)
+                            Text(prospect.emailAddress)
+                                .foregroundStyle(.secondary)
+                        })
+                        
+                        if prospect.isContacted {
+                            Spacer()
+                            Image(systemName: "checkmark")
+                                .tint(.red)
+                        }
+                    }
+                }
+
                 .swipeActions {
                     Button("Delte", systemImage: "trash", role: .destructive) {
                         modelContext.delete(prospect)
@@ -151,7 +164,7 @@ struct ProspectsView: View {
         
         if filter != .none {
             let showContactedOnly = filter == .contacted
-            
+                        
             _prospects = Query(filter: #Predicate{
                 $0.isContacted == showContactedOnly
             }, sort: [SortDescriptor(\Prospect.name)])
