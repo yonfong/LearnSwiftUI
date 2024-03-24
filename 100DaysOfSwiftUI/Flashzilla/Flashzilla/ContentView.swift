@@ -20,6 +20,8 @@ struct ContentView: View {
     let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common).autoconnect()
     @State private var counter = 0
     
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
         
         Text("Test timer combine")
@@ -31,6 +33,15 @@ struct ContentView: View {
                 }
                 counter += 1
             })
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .active {
+                    print("Active")
+                } else if newPhase == .inactive {
+                    print("Inactive")
+                } else if newPhase == .background {
+                    print("Backgrond")
+                }
+            }
         
         let dragGesture = DragGesture()
             .onChanged { offset = $0.translation }
