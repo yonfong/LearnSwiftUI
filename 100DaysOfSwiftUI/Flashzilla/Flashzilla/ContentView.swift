@@ -17,7 +17,20 @@ struct ContentView: View {
     @State private var offset = CGSize.zero
     @State private var isDragging = false
     
+    let timer = Timer.publish(every: 1, tolerance: 0.5, on: .main, in: .common).autoconnect()
+    @State private var counter = 0
+    
     var body: some View {
+        
+        Text("Test timer combine")
+            .onReceive(timer, perform: { time in
+                if counter == 5 {
+                    timer.upstream.connect().cancel()
+                } else {
+                    print("the time is now \(time)")
+                }
+                counter += 1
+            })
         
         let dragGesture = DragGesture()
             .onChanged { offset = $0.translation }
