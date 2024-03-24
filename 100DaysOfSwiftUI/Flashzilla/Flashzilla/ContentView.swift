@@ -40,6 +40,15 @@ struct ContentView: View {
                         .stacked(at: index, in: cards.count)
                     }
                 }
+                .allowsHitTesting(timeRemaining > 0)
+                
+                if cards.isEmpty {
+                    Button("Start again", action: resetCards)
+                        .padding()
+                        .background(.white)
+                        .foregroundStyle(.black)
+                        .clipShape(.capsule)
+                }
             }
             
             if accessibilityDifferentiateWithoutColor {
@@ -71,15 +80,26 @@ struct ContentView: View {
         }
         .onChange(of: scenePhase) {
             if scenePhase == .active {
-                isActive = true
+                if !cards.isEmpty {
+                    isActive = true
+                }
             } else {
                 isActive = false
             }
         }
     }
     
+    func resetCards() {
+        cards = Array<Card>(repeating: Card.example, count: 10)
+        timeRemaining = 100
+        isActive = true
+    }
+    
     func removeCard(ad index: Int) {
         cards.remove(at: index)
+        if cards.isEmpty {
+            isActive = false
+        }
     }
     
     func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {
