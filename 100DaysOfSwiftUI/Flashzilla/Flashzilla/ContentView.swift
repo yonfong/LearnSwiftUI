@@ -43,6 +43,34 @@ struct ContentView: View {
             .offset(offset)
             .gesture(combined)
         
+        ZStack {
+            Rectangle()
+                .fill(.blue)
+                .frame(width: 300, height: 300)
+                .onTapGesture {
+                    print("Rectangle taped")
+                }
+            
+            Circle()
+                .fill(.red)
+                .frame(width: 300, height: 300)
+                .contentShape(.rect)
+                .onTapGesture {
+                    print("circle taped")
+                }
+//                .allowsHitTesting(false)
+        }
+        
+        VStack {
+            Text("hello")
+            Spacer().frame(height: 100)
+            Text("world")
+        }
+        .contentShape(.rect)
+        .onTapGesture {
+            print("vstack taped")
+        }
+        
 //        VStack {
 //            Text("test rotate")
 //                .frame(width: 300, height: 300)
