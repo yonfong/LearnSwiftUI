@@ -22,7 +22,48 @@ struct ContentView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+    @State private var scale = 1.0
+    
+    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
+    
     var body: some View {
+        Text("test reduce transparency")
+            .padding()
+            .background(reduceTransparency ? .black : .black.opacity(0.5))
+            .foregroundStyle(.white)
+            .clipShape(.capsule)
+        
+        
+        Button("Hello, test reduce motion") {
+            withOptionalAnimation {
+                scale *= 1.5
+            }
+//            if reduceMotion {
+//                scale *= 1.5
+//            } else {
+//                withAnimation {
+//                    scale *= 1.5
+//                }
+//            }
+        }
+        .scaleEffect(scale)
+        
+        
+        HStack {
+            if differentiateWithoutColor {
+                Image(systemName: "checkmark.circle")
+            }
+            
+            Text("Sucess")
+        }
+        .padding()
+        .background(differentiateWithoutColor ? .black : .green)
+        .foregroundStyle(.white)
+        .clipShape(.capsule)
+        
         
         Text("Test timer combine")
             .onReceive(timer, perform: { time in
@@ -158,6 +199,15 @@ struct ContentView: View {
 //        }
 //        .padding()
     }
+    
+    func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {
+        if UIAccessibility.isReduceMotionEnabled {
+            return try body()
+        } else {
+            return try withAnimation(animation, body)
+        }
+    }
+    
 }
 
 #Preview {
