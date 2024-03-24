@@ -12,6 +12,10 @@ struct CardView: View {
     
     @State private var isShowingAnswer = false
     
+    @State private var offset = CGSize.zero
+    
+    var removal: (() -> Void)? = nil
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
@@ -33,9 +37,25 @@ struct CardView: View {
             .multilineTextAlignment(.center)
         }
         .frame(width: 450, height: 250)
+        .rotationEffect(.degrees(offset.width / 5.0))
+        .offset(x: offset.width * 5.0)
+        .opacity(2-Double(abs(offset.width / 50)))
         .onTapGesture {
             isShowingAnswer.toggle()
         }
+        .gesture(
+            DragGesture()
+                .onChanged({ value in
+                    offset = value.translation
+                })
+                .onEnded({ value in
+                    if abs(offset.width) > 100 {
+                        removal?()
+                    } else {
+                        offset = .zero
+                    }
+                })
+        )
     }
 }
 
