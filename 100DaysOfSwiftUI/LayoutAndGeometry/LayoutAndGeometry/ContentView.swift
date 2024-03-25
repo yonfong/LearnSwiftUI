@@ -60,37 +60,83 @@ struct ContentView: View {
     ContentView()
 }
 
+struct OuterView: View {
+    var body: some View {
+        VStack {
+            Text("Top")
+            InnerView()
+            Text("Bottom")
+        }
+    }
+}
+
+struct InnerView: View {
+    var body: some View {
+        HStack {
+            Text("Left")
+            GeometryReader{ proxy in
+                Text("Center")
+                    .background(.blue)
+                    .onTapGesture {
+                        print("Global center: \(proxy.frame(in: .global).midX) x \(proxy.frame(in: .global).midY)")
+                        print("Custom center: \(proxy.frame(in: .named("Custom")).midX) x \(proxy.frame(in: .named("Custom")).midY)")
+                        print("Local center: \(proxy.frame(in: .local).midX) x \(proxy.frame(in: .local).midY)")
+                    }
+            }
+            .background(.orange)
+            Text("Right")
+        }
+    }
+}
+
 struct GeometryReaderView: View {
     var body: some View {
-        GeometryReader { proxy in
-            Image(.example)
-                .resizable()
-                .scaledToFit()
-                .frame(width: proxy.size.width * 0.8)
-                .background(.red)
-        }
+        OuterView()
+            .background(.red)
+            .coordinateSpace(name: "Custom")
         
-        HStack {
-            Text("IMPORTANT")
-                .frame(width: 200)
-                .background(.blue)
-            
-            GeometryReader { proxy in
-                Image(.example)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: proxy.size.width * 0.8)
-                    .frame(width: proxy.size.width, height: proxy.size.height)
-                    .background(.yellow)
-            }
+        
+//        VStack {
+//            GeometryReader { proxy in
+//                Text("hello, world")
+//                    .frame(width: proxy.size.width * 0.9, height: 40)
+//                    .background(.blue)
+//            }
+//            .background(.yellow)
+//            
+//            Text("More text")
+//                .background(.red)
+//        }
+        
+//        GeometryReader { proxy in
 //            Image(.example)
 //                .resizable()
 //                .scaledToFit()
-//                .containerRelativeFrame(.horizontal) { size, axis in
-//                    size * 0.8
-//                }
-//                .background(.yellow)
-        }
+//                .frame(width: proxy.size.width * 0.8)
+//                .background(.red)
+//        }
+//        
+//        HStack {
+//            Text("IMPORTANT")
+//                .frame(width: 200)
+//                .background(.blue)
+//            
+//            GeometryReader { proxy in
+//                Image(.example)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: proxy.size.width * 0.8)
+//                    .frame(width: proxy.size.width, height: proxy.size.height)
+//                    .background(.yellow)
+//            }
+////            Image(.example)
+////                .resizable()
+////                .scaledToFit()
+////                .containerRelativeFrame(.horizontal) { size, axis in
+////                    size * 0.8
+////                }
+////                .background(.yellow)
+//        }
     }
 }
 
