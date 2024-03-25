@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        CustomAlignmentGuideView()
-        
+//        CustomAlignmentGuideView()
+        AbsolutePositioningView()
         
 //        VStack {
 //            Image(systemName: "globe")
@@ -57,6 +57,14 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct AbsolutePositioningView: View {
+    var body: some View {
+        Text("hello, world")
+            .offset(x: 100, y: 100)
+            .background(.red)
+    }
 }
 
 struct CustomAlignmentGuideView: View {
