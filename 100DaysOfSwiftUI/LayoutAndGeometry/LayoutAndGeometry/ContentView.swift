@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
 //        CustomAlignmentGuideView()
-        AbsolutePositioningView()
+//        AbsolutePositioningView()
+        GeometryReaderView()
         
 //        VStack {
 //            Image(systemName: "globe")
@@ -57,6 +58,40 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct GeometryReaderView: View {
+    var body: some View {
+        GeometryReader { proxy in
+            Image(.example)
+                .resizable()
+                .scaledToFit()
+                .frame(width: proxy.size.width * 0.8)
+                .background(.red)
+        }
+        
+        HStack {
+            Text("IMPORTANT")
+                .frame(width: 200)
+                .background(.blue)
+            
+            GeometryReader { proxy in
+                Image(.example)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: proxy.size.width * 0.8)
+                    .frame(width: proxy.size.width, height: proxy.size.height)
+                    .background(.yellow)
+            }
+//            Image(.example)
+//                .resizable()
+//                .scaledToFit()
+//                .containerRelativeFrame(.horizontal) { size, axis in
+//                    size * 0.8
+//                }
+//                .background(.yellow)
+        }
+    }
 }
 
 struct AbsolutePositioningView: View {
