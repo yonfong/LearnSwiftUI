@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var cards = Array<Card>(repeating: Card.example, count: 10)
+    @State private var cards = [Card]()
     @Environment(\.accessibilityDifferentiateWithoutColor) var accessibilityDifferentiateWithoutColor
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.accessibilityVoiceOverEnabled) var accessibilityVoiceOverEnabled
     
-    @State private var isActive = true
+    @State private var showingEditScreen = false
     
+    @State private var isActive = true
     @State private var timeRemaining = 100
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -54,6 +55,24 @@ struct ContentView: View {
                         .clipShape(.capsule)
                 }
             }
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        showingEditScreen = true
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .padding()
+                            .background(.black.opacity(0.7))
+                            .clipShape(.circle)
+                    }
+                }
+                Spacer()
+            }
+            .foregroundStyle(.white)
+            .font(.largeTitle)
+            .padding()
             
             if accessibilityDifferentiateWithoutColor || accessibilityVoiceOverEnabled {
                 VStack {
@@ -110,12 +129,25 @@ struct ContentView: View {
                 isActive = false
             }
         }
+        .onAppear(perform: resetCards)
+        .sheet(isPresented: $showingEditScreen, onDismiss: resetCards, content: {
+            EditCards()
+        })
     }
     
     func resetCards() {
-        cards = Array<Card>(repeating: Card.example, count: 10)
         timeRemaining = 100
         isActive = true
+        
+        loadData()
+    }
+    
+    func loadData() {
+        if let data = UserDefaults.standard.data(forKey: "Cards") {
+            if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
+                cards = decoded
+            }
+        }
     }
     
     func removeCard(ad index: Int) {
