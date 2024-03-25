@@ -14,7 +14,8 @@ struct ContentView: View {
 //        GeometryReaderView()
 //        ScrollEffectView()
         
-        CoverFlowView()
+//        CoverFlowView()
+        ChallengeView()
         
 //        VStack {
 //            Image(systemName: "globe")
@@ -91,6 +92,33 @@ struct InnerView: View {
         }
     }
 }
+
+struct ChallengeView: View {
+    let colors: [Color] = [.red, .green, .blue, .orange, .pink, .purple, .yellow]
+    var body: some View {
+        GeometryReader { fullView in
+            ScrollView {
+                ForEach(0..<50) { index in
+                    GeometryReader { proxy in
+                        Text("Row #\(index)")
+                            .font(.title)
+                            .frame(maxWidth: .infinity)
+                            .background(colors[index % 7])
+                            .rotation3DEffect(
+                                .degrees(proxy.frame(in: .global).minY - fullView.size.height / 2) / 5,
+                                axis: (x: 0.0, y: 1.0, z: 0.0)
+                            )
+                            .opacity((proxy.frame(in: .global).minY - 200) / fullView.size.height )
+                            .scaleEffect(CGSize(width: 0.5 + (proxy.frame(in: .global).minY / fullView.size.height), height: 0.5 + (proxy.frame(in: .global).minY / fullView.size.height)))
+                    }
+                    .frame(height: 40)
+                }
+            }
+            
+        }
+    }
+}
+
 
 struct CoverFlowView: View {
     var body: some View {
