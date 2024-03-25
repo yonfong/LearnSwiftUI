@@ -34,15 +34,33 @@ struct ContentView: View {
                     .clipShape(.capsule)
                 
                 ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: cards[index]) {
+//                    ForEach(0..<cards.count, id: \.self) { index in
+//                        CardView(card: cards[index]) {isWrong in 
+//                            withAnimation {
+//                                removeCard(ad: index)
+//                            }
+//                        }
+//                        .stacked(at: index, in: cards.count)
+//                        .allowsHitTesting(index == cards.count - 1)
+//                        .accessibilityHidden(index < cards.count - 1)
+//                    }
+                    
+                    ForEach(cards) { card in
+                        let index = cards.firstIndex(where: {$0.id == card.id}) ?? 0
+                        CardView(card: card) { isWrong in
                             withAnimation {
-                                removeCard(ad: index)
+                                if isWrong {
+                                    if let removedCard = removeCard(at: index) {
+                                        addCardBack(card: removedCard)
+                                    }
+                                } else {
+                                    _ = removeCard(at: index)
+                                }
                             }
                         }
                         .stacked(at: index, in: cards.count)
-                        .allowsHitTesting(index == cards.count - 1)
-                        .accessibilityHidden(index < cards.count - 1)
+                        .allowsHitTesting(card == cards.last)
+                        .accessibilityHidden(card != cards.last)
                     }
                 }
                 .allowsHitTesting(timeRemaining > 0)
@@ -81,7 +99,9 @@ struct ContentView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                removeCard(ad: cards.count - 1)
+                                if let card = removeCard(at: cards.count - 1) {
+                                    addCardBack(card: card)
+                                }
                             }
                         } label: {
                             Image(systemName: "xmark.circle")
@@ -96,7 +116,7 @@ struct ContentView: View {
                         
                         Button {
                             withAnimation {
-                                removeCard(ad: cards.count - 1)
+                                _ = removeCard(at: cards.count - 1)
                             }
                         } label: {
                             Image(systemName: "checkmark.circle")
@@ -143,19 +163,26 @@ struct ContentView: View {
     }
     
     func loadData() {
-        if let data = UserDefaults.standard.data(forKey: "Cards") {
+        if let data = UserDefaults.standard.data(forKey: "cards") {
             if let decoded = try? JSONDecoder().decode([Card].self, from: data) {
                 cards = decoded
             }
         }
     }
     
-    func removeCard(ad index: Int) {
-        guard index > 0 else { return }
-        cards.remove(at: index)
+    func addCardBack(card: Card) {
+        let card = Card(id: UUID(), prompt: card.prompt, answer: card.answer)
+        cards.insert(card, at: 0)
+        isActive = true
+    }
+    
+    func removeCard(at index: Int) -> Card? {
+        guard index >= 0 else { return nil }
+        let card = cards.remove(at: index)
         if cards.isEmpty {
             isActive = false
         }
+        return card
     }
     
     func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: () throws -> Result) rethrows -> Result {

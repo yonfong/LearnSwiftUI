@@ -17,7 +17,7 @@ struct CardView: View {
     
     @State private var offset = CGSize.zero
     
-    var removal: (() -> Void)? = nil
+    var removal: ((_ isWrong: Bool) -> Void)? = nil
     
     var body: some View {
         ZStack {
@@ -25,7 +25,7 @@ struct CardView: View {
                 .fill(accessibilityDifferentiateWithoutColor ? .white : .white.opacity(1-Double(abs(offset.width / 50))))
                 .background(
                     accessibilityDifferentiateWithoutColor ? nil : RoundedRectangle(cornerRadius: 25)
-                        .fill(offset.width > 0 ? .green : .red)
+                        .fill(offset.width > 0 ? .green : offset.width == 0 ? .white : .red)
                 )
                 .shadow(radius: 10)
             
@@ -65,7 +65,7 @@ struct CardView: View {
                 })
                 .onEnded({ value in
                     if abs(offset.width) > 100 {
-                        removal?()
+                        removal?(offset.width < 0)
                     } else {
                         offset = .zero
                     }
