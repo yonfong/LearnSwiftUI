@@ -50,9 +50,18 @@ struct ContentView: View {
     @State private var player = Player()
     
     let resorts:[Resort] = Bundle.main.decode("resorts.json")
+    
+    var filterdResorts:[Resort] {
+        if searchText.isEmpty {
+            return resorts
+        } else {
+            return resorts.filter { $0.name.localizedCaseInsensitiveContains(searchText)}
+        }
+    }
+    
     var body: some View {
         NavigationSplitView {
-            List(resorts) { resport in
+            List(filterdResorts) { resport in
                 NavigationLink(value: resport) {
                     Image(resport.country)
                         .resizable()
@@ -75,6 +84,7 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Resorts")
+            .searchable(text: $searchText, prompt: "Search for a resort")
             .navigationDestination(for: Resort.self) { resort in
                 ResortView(resort: resort)
             }
