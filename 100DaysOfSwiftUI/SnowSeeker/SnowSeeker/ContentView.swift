@@ -51,7 +51,7 @@ struct ContentView: View {
     
     let resorts:[Resort] = Bundle.main.decode("resorts.json")
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             List(resorts) { resport in
                 NavigationLink {
                     Text(resport.name)
@@ -77,6 +77,8 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Resorts")
+        } detail: {
+            WelcomeView()
         }
     }
 }
