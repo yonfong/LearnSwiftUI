@@ -49,6 +49,8 @@ struct ContentView: View {
     
     @State private var player = Player()
     
+    @StateObject private var favorites = Favorites()
+    
     let resorts:[Resort] = Bundle.main.decode("resorts.json")
     
     var filterdResorts:[Resort] {
@@ -63,24 +65,33 @@ struct ContentView: View {
         NavigationSplitView {
             List(filterdResorts) { resport in
                 NavigationLink(value: resport) {
-                    Image(resport.country)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 25)
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: 5)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(.black, lineWidth: 1)
-                        )
-                    
-                    VStack(alignment: .leading, content: {
-                        Text(resport.name)
-                            .font(.headline)
+                    HStack {
+                        Image(resport.country)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 25)
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 5)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(.black, lineWidth: 1)
+                            )
                         
-                        Text("\(resport.runs) runs")
-                    })
+                        VStack(alignment: .leading, content: {
+                            Text(resport.name)
+                                .font(.headline)
+                            
+                            Text("\(resport.runs) runs")
+                        })
+                        
+                        if favorites.contains(resport) {
+                            Spacer()
+                            Image(systemName: "heart.fill")
+                                .accessibilityLabel("this is a favorite resort")
+                                .foregroundColor(.red)
+                        }
+                    }
                 }
             }
             .navigationTitle("Resorts")
@@ -91,6 +102,7 @@ struct ContentView: View {
         } detail: {
             WelcomeView()
         }
+        .environmentObject(favorites)
     }
 }
 
