@@ -37,6 +37,8 @@ struct ContentView: View {
     
     let allNames = ["Subh", "Vina", "Melvin", "Stefanie"]
 
+    
+    
     var filteredNames:[String] {
         if searchText.isEmpty {
             return allNames
@@ -47,57 +49,35 @@ struct ContentView: View {
     
     @State private var player = Player()
     
+    let resorts:[Resort] = Bundle.main.decode("resorts.json")
     var body: some View {
-        VStack {
-            Text("welcom")
-            PlayerView()
+        NavigationView {
+            List(resorts) { resport in
+                NavigationLink {
+                    Text(resport.name)
+                } label: {
+                    Image(resport.country)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 25)
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: 5)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(.black, lineWidth: 1)
+                        )
+                    
+                    VStack(alignment: .leading, content: {
+                        Text(resport.name)
+                            .font(.headline)
+                        
+                        Text("\(resport.runs) runs")
+                    })
+                }
+            }
+            .navigationTitle("Resorts")
         }
-        .environment(player)
-        
-        
-//        NavigationView {
-//            List(filteredNames, id: \.self) { name in
-//                Text(name)
-//            }
-//                .searchable(text: $searchText, prompt: "Look for something")
-//                .navigationTitle("Searching")
-//        }
-        
-        
-//        Group {
-//            if sizeClass == .compact {
-//                VStack {
-//                    TestGroupView()
-//                }
-//            } else {
-//                HStack {
-//                    TestGroupView()
-//                }
-//            }
-//        }
-//        .onTapGesture {
-//            layoutVertically.toggle()
-//        }
-        
-        
-//        TestGroupView()
-//        NavigationView {
-//            NavigationLink {
-//                Text("new secondary")
-//            } label: {
-//                Text("hello world")
-//                    .onTapGesture {
-//                        isShowingUser.toggle()
-//                        selectedUser = User()
-//                    }
-//            }
-//                .navigationTitle("primary")
-////                .sheet(item: $selectedUser) { user in
-////                    Text(user.id)
-////                }
-//                .alert("welcom", isPresented: $isShowingUser){}
-//
-//        }
     }
 }
 
