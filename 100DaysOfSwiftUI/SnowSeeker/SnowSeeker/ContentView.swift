@@ -53,9 +53,7 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List(resorts) { resport in
-                NavigationLink {
-                    Text(resport.name)
-                } label: {
+                NavigationLink(value: resport) {
                     Image(resport.country)
                         .resizable()
                         .scaledToFill()
@@ -77,6 +75,9 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Resorts")
+            .navigationDestination(for: Resort.self) { resort in
+                ResortView(resort: resort)
+            }
         } detail: {
             WelcomeView()
         }
