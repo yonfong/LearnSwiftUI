@@ -52,5 +52,4 @@ struct BookListView: View {
     preview.addExamples(Book.sampleBooks)
     return BookListView()
         .modelContainer(preview.container)
-//        .modelContainer(for: Book.self, inMemory: true)
 }

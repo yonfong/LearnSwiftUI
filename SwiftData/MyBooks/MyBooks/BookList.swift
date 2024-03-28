@@ -75,5 +75,5 @@ struct BookList: View {
     return NavigationStack {
         BookList(sortOrder: .status, filterString: "")
     }
-    .modelContainer(preview.container)
+        .modelContainer(preview.container)
 }

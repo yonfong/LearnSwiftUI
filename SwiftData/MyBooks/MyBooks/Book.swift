@@ -43,7 +43,7 @@ class Book {
         self.recommendedBy = recommendedBy
     }
     
-    var icon:Image {
+    var icon: Image {
         switch Status(rawValue: status)! {
         case .onShelf:
             Image(systemName: "checkmark.diamond.fill")

@@ -13,15 +13,15 @@ struct EditBookView: View {
     let book: Book
     @State private var status = Status.onShelf
     @State private var rating: Int?
-    @State private var title: String = ""
-    @State private var author: String = ""
-    @State private var synopsis: String = ""
-    @State private var dateAdded: Date = Date.now
-    @State private var dateStarted: Date = Date.distantPast
-    @State private var dateCompleted: Date = Date.distantPast
-    
+    @State private var title = ""
+    @State private var author = ""
+    @State private var synopsis = ""
+    @State private var dateAdded = Date.distantPast
+    @State private var dateStarted = Date.distantPast
+    @State private var dateCompleted = Date.distantPast
     @State private var firstView = true
     @State private var recommendedBy = ""
+    
     var body: some View {
         HStack {
             Text("Status")
@@ -39,18 +39,16 @@ struct EditBookView: View {
                 } label: {
                     Text("Date Added")
                 }
-
                 if status == .inProgress || status == .completed {
                     LabeledContent {
-                        DatePicker("", selection: $dateStarted, in:dateAdded..., displayedComponents: .date)
+                        DatePicker("", selection: $dateStarted, in: dateAdded..., displayedComponents: .date)
                     } label: {
                         Text("Date Started")
                     }
                 }
-                
-                if  status == .completed {
+                if status == .completed {
                     LabeledContent {
-                        DatePicker("", selection: $dateStarted, in: dateStarted..., displayedComponents: .date)
+                        DatePicker("", selection: $dateCompleted, in: dateStarted..., displayedComponents: .date)
                     } label: {
                         Text("Date Completed")
                     }
@@ -58,23 +56,26 @@ struct EditBookView: View {
             }
             .foregroundStyle(.secondary)
             .onChange(of: status) { oldValue, newValue in
-                if !firstView {
-                    if newValue == .onShelf {
-                        dateStarted = Date.distantPast
-                        dateCompleted = Date.distantPast
-                    } else if newValue == .inProgress && oldValue == .completed {
-                        dateCompleted = Date.distantPast
-                    } else if newValue == .inProgress && oldValue == .onShelf {
-                        dateStarted = .now
-                    } else if newValue == .completed && oldValue == .onShelf {
-                        dateCompleted = .now
-                        dateStarted = dateAdded
-                    } else {
-                        dateCompleted = .now
+                    if !firstView {
+                        if newValue == .onShelf {
+                            dateStarted = Date.distantPast
+                            dateCompleted = Date.distantPast
+                        } else if newValue == .inProgress && oldValue == .completed {
+                            // from completed to inProgress
+                            dateCompleted = Date.distantPast
+                        } else if newValue == .inProgress && oldValue == .onShelf {
+                            // Book has been started
+                            dateStarted = Date.now
+                        } else if newValue == .completed && oldValue == .onShelf {
+                            // Forgot to start book
+                            dateCompleted = Date.now
+                            dateStarted = dateAdded
+                        } else {
+                            // completed
+                            dateCompleted = Date.now
+                        }
+                        firstView = false
                     }
-                    
-                    firstView = false
-                }
             }
             Divider()
             LabeledContent {
@@ -85,27 +86,23 @@ struct EditBookView: View {
             LabeledContent {
                 TextField("", text: $title)
             } label: {
-                Text("Title")
-                    .foregroundStyle(.secondary)
+                Text("Title").foregroundStyle(.secondary)
             }
             LabeledContent {
                 TextField("", text: $author)
             } label: {
-                Text("Author")
+                Text("Author").foregroundStyle(.secondary)
             }
             LabeledContent {
                 TextField("", text: $recommendedBy)
             } label: {
-                Text("Recommended by")
+                Text("Recommended by").foregroundStyle(.secondary)
             }
             Divider()
             Text("Synopsis").foregroundStyle(.secondary)
             TextEditor(text: $synopsis)
                 .padding(5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color(uiColor: .tertiarySystemFill), lineWidth: 2)
-                )
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color(uiColor: .tertiarySystemFill), lineWidth: 2))
         }
         .padding()
         .textFieldStyle(.roundedBorder)

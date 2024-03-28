@@ -6,19 +6,16 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct NewBookView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
-    
     @State private var title = ""
     @State private var author = ""
-    
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Book title", text: $title)
+                TextField("Book Title", text: $title)
                 TextField("Author", text: $author)
                 Button("Create") {
                     let newBook = Book(title: title, author: author)
@@ -29,7 +26,7 @@ struct NewBookView: View {
                 .buttonStyle(.borderedProminent)
                 .padding(.vertical)
                 .disabled(title.isEmpty || author.isEmpty)
-                .navigationTitle("New book")
+                .navigationTitle("New Book")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
