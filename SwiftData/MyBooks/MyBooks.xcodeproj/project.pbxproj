@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33B215112BB5046100336FD8 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B215102BB5046100336FD8 /* Quote.swift */; };
+		33B215132BB5058900336FD8 /* QuoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B215122BB5058900336FD8 /* QuoteListView.swift */; };
 		33DAD7E12BB41BDA0051CEDB /* MyBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7E02BB41BDA0051CEDB /* MyBooksApp.swift */; };
 		33DAD7E32BB41BDA0051CEDB /* BookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7E22BB41BDA0051CEDB /* BookListView.swift */; };
 		33DAD7E52BB41BDB0051CEDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33DAD7E42BB41BDB0051CEDB /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33B215102BB5046100336FD8 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		33B215122BB5058900336FD8 /* QuoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteListView.swift; sourceTree = "<group>"; };
 		33DAD7DD2BB41BDA0051CEDB /* MyBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33DAD7E02BB41BDA0051CEDB /* MyBooksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBooksApp.swift; sourceTree = "<group>"; };
 		33DAD7E22BB41BDA0051CEDB /* BookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListView.swift; sourceTree = "<group>"; };
@@ -71,7 +75,9 @@
 				33DAD7F22BB436E20051CEDB /* EditBookView.swift */,
 				33DAD7F42BB44DCF0051CEDB /* RatingsView.swift */,
 				33DAD7F02BB41FF80051CEDB /* NewBookView.swift */,
+				33B215122BB5058900336FD8 /* QuoteListView.swift */,
 				33DAD7EE2BB41C010051CEDB /* Book.swift */,
+				33B215102BB5046100336FD8 /* Quote.swift */,
 				33DAD7E42BB41BDB0051CEDB /* Assets.xcassets */,
 				33DAD7E62BB41BDB0051CEDB /* Preview Content */,
 			);
@@ -166,6 +172,8 @@
 				33DAD7E32BB41BDA0051CEDB /* BookListView.swift in Sources */,
 				33DAD7E12BB41BDA0051CEDB /* MyBooksApp.swift in Sources */,
 				33DAD7F92BB45E990051CEDB /* PreviewContainer.swift in Sources */,
+				33B215132BB5058900336FD8 /* QuoteListView.swift in Sources */,
+				33B215112BB5046100336FD8 /* Quote.swift in Sources */,
 				33DAD7EF2BB41C010051CEDB /* Book.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

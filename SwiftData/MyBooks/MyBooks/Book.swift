@@ -21,6 +21,9 @@ class Book {
     var status: Status.RawValue
     var recommendedBy: String = ""
     
+    @Relationship(deleteRule: .cascade)
+    var quotes:[Quote]?
+    
     init(
         title: String,
         author: String,
