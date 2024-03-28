@@ -17,6 +17,7 @@
 		33DAD7F52BB44DCF0051CEDB /* RatingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7F42BB44DCF0051CEDB /* RatingsView.swift */; };
 		33DAD7F72BB45CD20051CEDB /* BookSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7F62BB45CD20051CEDB /* BookSamples.swift */; };
 		33DAD7F92BB45E990051CEDB /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7F82BB45E990051CEDB /* PreviewContainer.swift */; };
+		33DAD7FB2BB4668F0051CEDB /* BookList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DAD7FA2BB4668F0051CEDB /* BookList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		33DAD7F42BB44DCF0051CEDB /* RatingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingsView.swift; sourceTree = "<group>"; };
 		33DAD7F62BB45CD20051CEDB /* BookSamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSamples.swift; sourceTree = "<group>"; };
 		33DAD7F82BB45E990051CEDB /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
+		33DAD7FA2BB4668F0051CEDB /* BookList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			children = (
 				33DAD7E02BB41BDA0051CEDB /* MyBooksApp.swift */,
 				33DAD7E22BB41BDA0051CEDB /* BookListView.swift */,
+				33DAD7FA2BB4668F0051CEDB /* BookList.swift */,
 				33DAD7F22BB436E20051CEDB /* EditBookView.swift */,
 				33DAD7F42BB44DCF0051CEDB /* RatingsView.swift */,
 				33DAD7F02BB41FF80051CEDB /* NewBookView.swift */,
@@ -158,6 +161,7 @@
 				33DAD7F72BB45CD20051CEDB /* BookSamples.swift in Sources */,
 				33DAD7F12BB41FF80051CEDB /* NewBookView.swift in Sources */,
 				33DAD7F52BB44DCF0051CEDB /* RatingsView.swift in Sources */,
+				33DAD7FB2BB4668F0051CEDB /* BookList.swift in Sources */,
 				33DAD7F32BB436E20051CEDB /* EditBookView.swift in Sources */,
 				33DAD7E32BB41BDA0051CEDB /* BookListView.swift in Sources */,
 				33DAD7E12BB41BDA0051CEDB /* MyBooksApp.swift in Sources */,
