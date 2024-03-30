@@ -13,6 +13,7 @@
 		33159D802BB7B36A00520B1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33159D7F2BB7B36A00520B1A /* Preview Assets.xcassets */; };
 		33159D872BB7B39B00520B1A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33159D862BB7B39B00520B1A /* ToDo.swift */; };
 		33159D892BB7B41400520B1A /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33159D882BB7B41400520B1A /* DataStore.swift */; };
+		333E1A372BB7C7EF0029C2B6 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E1A362BB7C7EF0029C2B6 /* FileManager+Extension.swift */; };
 		33889DF72BB7B74A00FFA9D4 /* ToDoFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33889DF62BB7B74A00FFA9D4 /* ToDoFormViewModel.swift */; };
 		33889DF92BB7B81200FFA9D4 /* ToDoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33889DF82BB7B81200FFA9D4 /* ToDoFormView.swift */; };
 		33889DFB2BB7C1C400FFA9D4 /* ModeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33889DFA2BB7C1C400FFA9D4 /* ModeType.swift */; };
@@ -26,6 +27,7 @@
 		33159D7F2BB7B36A00520B1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		33159D862BB7B39B00520B1A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		33159D882BB7B41400520B1A /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		333E1A362BB7C7EF0029C2B6 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		33889DF62BB7B74A00FFA9D4 /* ToDoFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoFormViewModel.swift; sourceTree = "<group>"; };
 		33889DF82BB7B81200FFA9D4 /* ToDoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoFormView.swift; sourceTree = "<group>"; };
 		33889DFA2BB7C1C400FFA9D4 /* ModeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeType.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		33159D772BB7B36900520B1A /* MyTodos */ = {
 			isa = PBXGroup;
 			children = (
+				333E1A352BB7C7D60029C2B6 /* Extensions */,
 				33889DFE2BB7C60800FFA9D4 /* ViewModels */,
 				33889DFD2BB7C60100FFA9D4 /* Models */,
 				33889DFC2BB7C5FC00FFA9D4 /* Views */,
@@ -77,6 +80,14 @@
 				33159D7F2BB7B36A00520B1A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		333E1A352BB7C7D60029C2B6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				333E1A362BB7C7EF0029C2B6 /* FileManager+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		33889DFC2BB7C5FC00FFA9D4 /* Views */ = {
@@ -177,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33889DF92BB7B81200FFA9D4 /* ToDoFormView.swift in Sources */,
+				333E1A372BB7C7EF0029C2B6 /* FileManager+Extension.swift in Sources */,
 				33159D872BB7B39B00520B1A /* ToDo.swift in Sources */,
 				33159D892BB7B41400520B1A /* DataStore.swift in Sources */,
 				33889DFB2BB7C1C400FFA9D4 /* ModeType.swift in Sources */,
